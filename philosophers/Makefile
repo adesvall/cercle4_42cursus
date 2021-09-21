@@ -1,6 +1,6 @@
 NAME		= philosophers
 
-SRCS		= srcs/main.c srcs/init.c srcs/utils.c srcs/philo_life.c
+SRCS		= srcs/main.c srcs/init.c srcs/utils.c srcs/philo_life.c srcs/display.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -9,7 +9,7 @@ CFLAGS		= -Wall -Wextra -Werror -I.
 all:		${NAME}
 
 $(NAME):	${OBJS}
-			gcc ${CFLAGS} -o ${NAME} ${OBJS}
+			gcc ${CFLAGS} -o ${NAME} ${OBJS} -lpthread
 
 .c.o:
 			gcc ${CFLAGS} -c $< -o ${<:.c=.o}

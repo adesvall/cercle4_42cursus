@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:32:47 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/21 20:59:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/09/22 00:02:51 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,19 @@
 uint64_t	get_time(void)
 {
 	struct timeval	time;
+
 	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	return ((uint64_t)time.tv_sec * 1000 + (uint64_t)time.tv_usec / 1000);
+}
+
+int	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 static	int	ft_isin(char c, const char *str)
@@ -56,4 +67,27 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (res * sign);
+}
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	size_t	i;
+	char	c;
+
+	if (n == -2147483648)
+	{
+		write(fd, "-2147483648", 11);
+		return ;
+	}
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		i = -n;
+	}
+	else
+		i = n;
+	if (i > 9)
+		ft_putnbr_fd((int)(i / 10), fd);
+	c = '0' + i % 10;
+	write(fd, &c, 1);
 }
