@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:11:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/21 21:01:29 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/09/21 21:05:45 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	main(int argc, char **argv)
 	if (argc != 6 || argc != 5)
 		return (0);
 	if (init(&glob, argc, argv))
-		return (1); //clean_glob(&glob));
-	start_threads(&glob);
+		return (1); //clean_glob(&glob)
+	if (start_threads(&glob))
+		return (1);
+	pthread_mutex_lock(&glob.end);
+	//clean_glob(&glob);
 }
