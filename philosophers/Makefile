@@ -1,4 +1,4 @@
-NAME		= philosophers
+NAME		= philo
 
 SRCS		= srcs/main.c srcs/init.c srcs/utils.c srcs/philo_life.c srcs/display.c
 
@@ -9,10 +9,10 @@ CFLAGS		= -Wall -Wextra -Werror -I.
 all:		${NAME}
 
 $(NAME):	${OBJS}
-			gcc ${CFLAGS} -o ${NAME} ${OBJS} -lpthread
+			clang ${CFLAGS} -o ${NAME} ${OBJS} -lpthread
 
 .c.o:
-			gcc ${CFLAGS} -c $< -o ${<:.c=.o}
+			clang ${CFLAGS} -c $< -o ${<:.c=.o}
 
 clean:
 			rm -f ${OBJS}

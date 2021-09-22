@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:12:23 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/22 01:36:33 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/09/22 14:21:57 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define M_THINK " is thinking\n"
 # define M_FORK " has taken a fork\n"
 # define M_DIED " died\n"
-# define M_STOP "number of times each philosopher must eat has been reached\n"
+# define M_STOP "Number of times each philosopher must eat has been reached\n"
 
 typedef struct s_glob	t_glob;
 

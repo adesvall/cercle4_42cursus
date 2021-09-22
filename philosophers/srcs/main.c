@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:11:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/22 01:42:30 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/09/22 14:34:55 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	check_eatcount(t_philo *philos, int len, int meals)
 	}
 	return (1);
 }
+
 void	*global_monitor(void *vglob)
 {
 	t_glob	*glob;
@@ -60,6 +61,7 @@ void	*global_monitor(void *vglob)
 		if (check_eatcount(glob->philos, glob->n_philo, glob->n_meals))
 		{
 			display(glob, -1, M_STOP);
+			pthread_mutex_lock(&glob->write);
 			pthread_mutex_unlock(&glob->end);
 			return (NULL);
 		}
@@ -70,6 +72,7 @@ void	*global_monitor(void *vglob)
 int	start_threads(t_glob *glob)
 {
 	int			i;
+	int			j;
 	pthread_t	tid;
 
 	if (glob->n_meals > 0)
@@ -79,24 +82,19 @@ int	start_threads(t_glob *glob)
 		pthread_detach(tid);
 	}
 	glob->start = get_time();
-	i = 0;
-	while (2 * i < glob->n_philo)
+	j = 0;
+	while (j < 2)
 	{
-		if (pthread_create(&tid, NULL, philo_life, \
-								(void *)&glob->philos[2 * i]))
-			return (-1);
-		pthread_detach(tid);
-		i++;
-	}
-	usleep(glob->time_eat * 500);
-	i = 0;
-	while (2 * i + 1 < glob->n_philo)
-	{
-		if (pthread_create(&tid, NULL, philo_life, \
-								(void *)&glob->philos[2 * i + 1]))
-			return (-1);
-		pthread_detach(tid);
-		i++;
+		i = 0;
+		while (2 * i + j < glob->n_philo)
+		{
+			if (pthread_create(&tid, NULL, philo_life, \
+									(void *)&glob->philos[2 * i++ + j]))
+				return (-1);
+			pthread_detach(tid);
+		}
+		usleep(glob->time_eat * 500);
+		j++;
 	}
 	return (0);
 }

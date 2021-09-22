@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:39:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/22 01:37:51 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/09/22 14:12:44 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	eat(t_philo *philo)
 	philo->meal_count++;
 }
 
-void	pose_forks_and_sleep(t_philo *philo)
+void	drop_forks_and_sleep(t_philo *philo)
 {
 	pthread_mutex_t	*forks;
 
@@ -56,11 +56,11 @@ void	*philo_monitor(void *vphilo)
 		{
 			display(philo->glob, philo->id, M_DIED);
 			pthread_mutex_unlock(&philo->glob->end);
-			pthread_mutex_unlock(&philo->mutex);
+			pthread_mutex_lock(&philo->glob->write);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->mutex);
-		usleep(5000);
+		usleep(2000);
 	}
 }
 
@@ -73,12 +73,12 @@ void	*philo_life(void *vphilo)
 	if (pthread_create(&tid, NULL, philo_monitor, vphilo))
 		return ((void *)1);
 	pthread_detach(tid);
-	philo->last_meal = get_time();
+	philo->last_meal = philo->glob->start;
 	while (1)
 	{
 		take_forks(philo);
 		eat(philo);
-		pose_forks_and_sleep(philo);
+		drop_forks_and_sleep(philo);
 		display(philo->glob, philo->id, M_THINK);
 	}
 	return (NULL);
