@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:39:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/22 14:12:44 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:20:37 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	*philo_monitor(void *vphilo)
 		if (get_time() > philo->last_meal + philo->glob->time_die)
 		{
 			display(philo->glob, philo->id, M_DIED);
-			pthread_mutex_unlock(&philo->glob->end);
 			pthread_mutex_lock(&philo->glob->write);
+			pthread_mutex_unlock(&philo->glob->end);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->mutex);
