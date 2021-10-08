@@ -56,16 +56,31 @@ void	*global_monitor(void *vglob)
 	t_glob	*glob;
 
 	glob = (t_glob *)vglob;
-	while (1)
+	while (glob->is_running)
 	{
 		if (check_eatcount(glob->philos, glob->n_philo, glob->n_meals))
 		{
 			display(glob, -1, M_STOP);
 			pthread_mutex_lock(&glob->write);
+			glob->is_running = 0;
 			pthread_mutex_unlock(&glob->end);
 			return (NULL);
 		}
 		usleep(glob->time_eat * 1000);
+	}
+	return (NULL);
+}
+
+
+void 	join_threads(t_glob *glob, pthread_t *tid)
+{
+	int i;
+
+	i = 0;
+	while (i < glob->n_philo + 1)
+	{
+		pthread_join(tid[i], NULL);
+		i++;
 	}
 }
 
@@ -73,13 +88,13 @@ int	start_threads(t_glob *glob)
 {
 	int			i;
 	int			j;
-	pthread_t	tid;
+	pthread_t	tid[glob->n_philo+1];
 
 	if (glob->n_meals > 0)
 	{
-		if (pthread_create(&tid, NULL, global_monitor, (void *)glob))
+		if (pthread_create(&tid[0], NULL, global_monitor, (void *)glob))
 			return (-1);
-		pthread_detach(tid);
+		// pthread_detach(tid);
 	}
 	glob->start = get_time();
 	j = 0;
@@ -88,14 +103,16 @@ int	start_threads(t_glob *glob)
 		i = 0;
 		while (2 * i + j < glob->n_philo)
 		{
-			if (pthread_create(&tid, NULL, philo_life, \
-									(void *)&glob->philos[2 * i++ + j]))
+			if (pthread_create(&tid[1+2*i+j], NULL, philo_life, \
+									(void *)&glob->philos[2 * i + j]))
 				return (-1);
-			pthread_detach(tid);
+			i++;
+			//pthread_detach(tid);
 		}
 		usleep(glob->time_eat * 500);
 		j++;
 	}
+	join_threads(glob, tid);
 	return (0);
 }
 
@@ -111,5 +128,7 @@ int	main(int argc, char **argv)
 		return (clean_glob(&glob));
 	pthread_mutex_lock(&glob.end);
 	pthread_mutex_unlock(&glob.end);
+	usleep(1000000);
+	pthread_mutex_unlock(&glob.write);
 	clean_glob(&glob);
 }

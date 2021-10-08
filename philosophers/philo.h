@@ -51,6 +51,7 @@ typedef struct s_glob
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
 	pthread_mutex_t	end;
+	int is_running;
 }						t_glob;
 
 int			init(t_glob *glob, int argc, char **argv);

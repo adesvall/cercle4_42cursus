@@ -55,6 +55,7 @@ int	init(t_glob *glob, int argc, char **argv)
 	glob->time_die = ft_atoi(argv[2]);
 	glob->time_eat = ft_atoi(argv[3]);
 	glob->time_sleep = ft_atoi(argv[4]);
+	glob->is_running = 1;
 	if (argc == 6)
 		glob->n_meals = ft_atoi(argv[5]);
 	// GERER LES ERREURS D'ENTREE

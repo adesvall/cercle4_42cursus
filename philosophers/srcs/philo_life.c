@@ -49,19 +49,21 @@ void	*philo_monitor(void *vphilo)
 	t_philo		*philo;
 
 	philo = (t_philo *)vphilo;
-	while (1)
+	while (philo->glob->is_running)
 	{
 		pthread_mutex_lock(&philo->mutex);
 		if (get_time() > philo->last_meal + philo->glob->time_die)
 		{
 			display(philo->glob, philo->id, M_DIED);
 			pthread_mutex_lock(&philo->glob->write);
+			philo->glob->is_running = 0;
 			pthread_mutex_unlock(&philo->glob->end);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->mutex);
 		usleep(2000);
 	}
+	return (NULL);
 }
 
 void	*philo_life(void *vphilo)
@@ -72,14 +74,15 @@ void	*philo_life(void *vphilo)
 	philo = (t_philo *)vphilo;
 	if (pthread_create(&tid, NULL, philo_monitor, vphilo))
 		return ((void *)1);
-	pthread_detach(tid);
+	//pthread_detach(tid);
 	philo->last_meal = philo->glob->start;
-	while (1)
+	while (philo->glob->is_running)
 	{
 		take_forks(philo);
 		eat(philo);
 		drop_forks_and_sleep(philo);
 		display(philo->glob, philo->id, M_THINK);
 	}
+	pthread_join(tid, NULL);
 	return (NULL);
 }
