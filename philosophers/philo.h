@@ -26,7 +26,7 @@
 # define M_THINK " is thinking\n"
 # define M_FORK " has taken a fork\n"
 # define M_DIED " died\n"
-# define M_STOP "Number of times each philosopher must eat has been reached\n"
+# define M_STOP "Every philosopher has eaten enough\n"
 
 typedef struct s_glob	t_glob;
 
@@ -51,7 +51,6 @@ typedef struct s_glob
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
 	pthread_mutex_t	end;
-
 }						t_glob;
 
 int			init(t_glob *glob, int argc, char **argv);
