@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/12 17:15:50 by adesvall         ###   ########.fr       */
+/*   Created: 2020/11/21 17:43:29 by adesvall          #+#    #+#             */
+/*   Updated: 2020/11/21 22:31:20 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <signal.h>
-# include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft/libft.h"
+void	ft_lstadd_back(t_list **alst, t_list *new)
+{
+	t_list	*last;
 
-# define PROMPT "minishell : "
-
-
-int	parse_line(char *line);
-
-#endif
+	if (!alst)
+		return ;
+	if (*alst == 0)
+	{
+		*alst = new;
+		return ;
+	}
+	last = ft_lstlast(*alst);
+	last->next = new;
+}

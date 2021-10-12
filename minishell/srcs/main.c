@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/09 16:42:33 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:32:52 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void handle_sig(int sig)
 
 int	sig_init(void)
 {
-	struct sigaction sig;
+	struct sigaction act;
 
-	sig.sa_handler = &handle_sig;
-	if (sigaction(SIGINT, &sig, NULL))
+	act.sa_handler = &handle_sig;
+	if (sigaction(SIGINT, &act, NULL))
 		return (1);
 	// if (sigaction(SIGQUIT, &sig, NULL))
 	// 	return (1);
@@ -49,7 +49,8 @@ int main()
 	line = readline(PROMPT);
 	while (line)
 	{
-		printf("%s\n", line);
+		// printf("%s\n", line);
+		parse_line(line);
 		free(line);
 		line = readline(PROMPT);
 	}

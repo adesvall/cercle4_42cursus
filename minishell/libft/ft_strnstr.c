@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/12 17:15:50 by adesvall         ###   ########.fr       */
+/*   Created: 2020/11/18 14:50:52 by adesvall          #+#    #+#             */
+/*   Updated: 2021/09/15 15:08:58 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <signal.h>
-# include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft/libft.h"
+char	*ft_strnstr(char *s1, const char *s2, size_t len)
+{
+	size_t	i;
+	size_t	j;
 
-# define PROMPT "minishell : "
-
-
-int	parse_line(char *line);
-
-#endif
+	j = 0;
+	if (*s2 == 0)
+		return (s1);
+	while (j + ft_strlen(s2) - 1 < ft_strlen(s1) && s1[j + ft_strlen(s2) - 1] \
+												&& j + ft_strlen(s2) <= len)
+	{
+		i = 0;
+		while (s2[i] == s1[j + i])
+		{
+			if (s2[i + 1] == 0)
+				return (s1 + j);
+			i++;
+		}
+		j++;
+	}
+	return (0);
+}

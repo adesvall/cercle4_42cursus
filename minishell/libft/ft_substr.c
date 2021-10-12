@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/12 17:15:50 by adesvall         ###   ########.fr       */
+/*   Created: 2020/11/18 19:23:09 by adesvall          #+#    #+#             */
+/*   Updated: 2020/11/22 19:15:26 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <signal.h>
-# include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft/libft.h"
+char	*ft_substr(const char *s, size_t start, size_t len)
+{
+	size_t	i;
+	char	*res;
 
-# define PROMPT "minishell : "
-
-
-int	parse_line(char *line);
-
-#endif
+	if (!s)
+		return (0);
+	if (start >= ft_strlen(s))
+		start = ft_strlen(s);
+	res = malloc(sizeof(char) * (len + 1));
+	if (res == 0)
+		return (0);
+	i = 0;
+	while (i < len && s[start + i])
+	{
+		res[i] = s[start + i];
+		i++;
+	}
+	res[i] = 0;
+	return (res);
+}

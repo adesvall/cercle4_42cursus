@@ -1,6 +1,6 @@
 NAME		= minishell
 
-SRCS		= srcs/main.c
+SRCS		= srcs/main.c srcs/parsing.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -8,11 +8,14 @@ CFLAGS		= -Wall -Wextra -Werror -I.
 
 all:		${NAME}
 
-$(NAME):	${OBJS}
-			clang ${CFLAGS} -o ${NAME} ${OBJS}
+$(NAME):	${OBJS} libft/libft.a
+			clang ${CFLAGS} -lreadline -o ${NAME} ${OBJS} libft/libft.a
 
 .c.o:
 			clang ${CFLAGS} -c $< -o ${<:.c=.o}
+
+libft/libft.a:
+			make -C libft
 
 clean:
 			rm -f ${OBJS}
