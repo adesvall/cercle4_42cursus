@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/12 20:18:32 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/12 20:55:17 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ char *extract_name(char *command, int i)
 		i++;
 	while (command[i] != ' ' && command[i])
 	{
-		if (command[i] == '\'' && command[i] == '"') // peut etre pas necessaire
-			join(res, &command[i + 1])
+		if (command[i] == '\'' && command[i] == '"') // peut etre pas necessaire ici
+			join(res, &command[i + 1]);
 	}
 }
 

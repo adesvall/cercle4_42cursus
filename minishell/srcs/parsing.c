@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/12 19:58:53 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/12 20:52:48 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int    skip_quotes(char *line, int i)
 		return (i);
 	c = line[i];
 	i++;
-	while (line[i] != c)
+	while (line[i] && line[i] != c)
 		i++;
 	return (i + 1);
 }
