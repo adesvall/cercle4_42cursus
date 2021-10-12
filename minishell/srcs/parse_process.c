@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/12 20:55:17 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/12 21:07:55 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef union u_dir
     int fd;
 }               t_dir;
 */
+
 typedef struct s_redir
 {
 	char	*file;
@@ -75,7 +76,7 @@ char *extract_name(char *command, int i)
 		i++;
 	while (command[i] != ' ' && command[i])
 	{
-		if (command[i] == '\'' && command[i] == '"') // peut etre pas necessaire ici
+		if (command[i] == '\'' && command[i] == '"')
 			join(res, &command[i + 1]);
 	}
 }
@@ -106,8 +107,6 @@ t_redir	parse_infile(char *command)
 
 int parse_process(char *command)
 {
-	char *infile;
-	char *outfile;
 
 	//il faut en fait direct ici expand les $ et les "'
 	// ou peut etre encore apres avoir split avec les espaces
