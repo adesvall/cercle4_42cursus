@@ -6,18 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/13 15:30:31 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/13 16:04:50 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-typedef union u_dir
-{
-    int fd;
-}               t_dir;
-*/
 
 typedef struct s_redir
 {
@@ -26,13 +19,6 @@ typedef struct s_redir
 	char	*outfile;
 	int		outcat;
 }			t_redir;
-
-typedef struct s_proc
-{
-	char	*command;
-	t_redir	in;
-	t_redir	out;
-}               t_proc;
 
 char **split_command(char *line)
 {
@@ -59,7 +45,10 @@ char **split_command(char *line)
 }
 
 /*
-char *extract_name(char *command, int i)
+* ft_extend est une fonction qui enleve les guillemets d'indication
+* et remplace le nom des variables d'environnement par leurs valeurs
+*
+char *ft_extend(char *str, int i)
 {
 	int start;
 
@@ -73,30 +62,7 @@ char *extract_name(char *command, int i)
 	}
 	return (ft_strndup(&command[start], i - start));
 }
-
-t_redir	parse_iofile(char *command, char io)
-{
-	int i;
-	t_redir res = (t_redir){0, 0};
-
-	i = 0;
-	while (command[i])
-	{
-		i = skip_quotes(command, i);
-		if (command[i] == io)
-		{
-			if (command[i + 1] == io)
-			{
-				redir.doub = 1;
-				i++;
-			}
-			free(redir.file);
-			redir.file = extract_name(command, i + 1);
-		}
-		i++;
-	}
-	return (res);
-}*/
+*/
 
 t_redir	parse_redir(char **elem)
 {
@@ -106,7 +72,7 @@ t_redir	parse_redir(char **elem)
 	i = 0;
 	while (elem[i])
 	{
-		printf("%s\n", elem[i]);
+		// printf("%s\n", elem[i]);
 		if (elem[i][0] == '<')
 		{
 			if (elem[i][1] == '<')
@@ -115,6 +81,17 @@ t_redir	parse_redir(char **elem)
 				res.heredoc = 0;
 			free(res.infile);
 			//redir.infile = ft_extend(&elem[i][1 + res.heredoc]);
+			free(elem[i]);
+			elem[i] = (void*)1;
+		}
+		else if (elem[i][0] == '>')
+		{
+			if (elem[i][1] == '>')
+				res.outcat = 1;
+			else
+				res.outcat = 0;
+			free(res.outfile);
+			//redir.outfile = ft_extend(&elem[i][1 + res.outcat]);
 			free(elem[i]);
 			elem[i] = (void*)1;
 		}
@@ -149,6 +126,7 @@ char **construct_argv(char **elem)
 		i++;
 	}
 	res[len] = NULL;
+	free(elem);
 	return (res);
 }
 
@@ -160,9 +138,6 @@ int parse_process(char *command)
 	elem = split_command(command);
 	io = parse_redir(elem);
 	elem = construct_argv(elem);
-
-	// il faut en fait direct ici expand les $ et les "'
-	// ou peut etre encore apres avoir split avec les espaces
+	
 	return (0);
 }
-
