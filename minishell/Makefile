@@ -1,6 +1,6 @@
 NAME		= minishell
 
-SRCS		= srcs/main.c srcs/parsing.c
+SRCS		= srcs/main.c srcs/parse_main.c srcs/parse_process.c srcs/parse_utils.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -19,9 +19,11 @@ libft/libft.a:
 
 clean:
 			rm -f ${OBJS}
+			make -C libft clean
 
 fclean:		clean
 			rm -f ${NAME}
+			rm -f libft/libft.a
 
 re:			fclean all
 

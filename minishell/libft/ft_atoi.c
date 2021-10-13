@@ -6,22 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 15:16:24 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/15 15:04:18 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:57:50 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static	int	ft_isin(char c, const char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		if (str[i++] == c)
-			return (1);
-	return (0);
-}
+#include "libft.h"
 
 int	ft_atoi(const char *str)
 {

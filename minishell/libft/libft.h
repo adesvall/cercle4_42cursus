@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 20:28:56 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/15 14:52:21 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:58:58 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ void			*ft_memcpy(void *dest, const void *src, size_t n);
 void			*ft_memmove(void *dest, const void *src, size_t n);
 void			*ft_memset(void *s, int c, size_t n);
 char			*ft_strchr(char *s, int c);
+int				ft_isin(char c, const char *str);
 char			*ft_strdup(const char *str);
+char			*ft_strndup(const char *str, int n);
 char			*ft_strjoin(const char *s1, const char *s2);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -57,6 +59,7 @@ void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 char			*ft_itoa(int n);
 int				ft_count_chr(const char *s, char c);
+char			*ft_strdup_chr(const char *str, char c);
 char			**ft_abort(char **res);
 char			**ft_split(const char *s, char c);
 t_list			*ft_lstnew(void *content);

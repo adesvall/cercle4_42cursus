@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/12 20:52:48 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:08:17 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int    skip_quotes(char *line, int i)
-{
-	char c;
-
-	if (line[i] != '\'' && line[i] != '"')
-		return (i);
-	c = line[i];
-	i++;
-	while (line[i] && line[i] != c)
-		i++;
-	return (i + 1);
-}
 
 char **split_processes(char *line)
 {
@@ -32,7 +19,8 @@ char **split_processes(char *line)
 	i = 0;
 	while (line[i])
 	{
-		i = skip_quotes(line, i);
+		if (line[i] == '"' || line[i] == '\'')
+			i = skip_quotes(line, i);
 		if (line[i] == '|')
 			line[i] = '\n';
 		i++;
@@ -49,14 +37,20 @@ int launch_processes(char **commands)
 	while (commands[i])
 		i++;
 	pid = 0;
-	while (i >= 0 && pid == 0)
+	while (i > 0 && pid == 0)
 	{
 		pid = fork();
 		// gerer erreur
-		i--;
+		if (pid == 0)
+			i--;
 	}
-	if (i >= 0)
-		printf("process n%d with command %s\n", i, commands[i]);
+	if (commands[i])
+	{
+		printf("process n°%d with command \"%s\"\n", i, commands[i]);
+		parse_process(commands[i]);
+		wait(NULL);
+		exit(0);
+	}
 	wait(NULL);
 	return (0);
 }

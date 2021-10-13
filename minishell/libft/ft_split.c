@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 14:40:18 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/15 15:13:01 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:36:50 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ft_count(const char *s, char c)
 	return (count);
 }
 
-static char	*ft_strdup_chr(const char *str, char c)
+char	*ft_strdup_chr(const char *str, char c)
 {
 	int		i;
 	char	*res;

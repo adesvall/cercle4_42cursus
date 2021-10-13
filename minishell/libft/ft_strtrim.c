@@ -6,13 +6,13 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 14:09:45 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/15 14:53:33 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:59:13 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	ft_isin(char c, const char *str)
+int	ft_isin(char c, const char *str)
 {
 	int	i;
 
