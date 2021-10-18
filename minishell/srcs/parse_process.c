@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/13 16:04:50 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/18 18:11:55 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_redir
 	int		outcat;
 }			t_redir;
 
-char **split_command(char *line)
+char **split_command(char *line) // il faut changer ça, "cat>out"
 {
 	int i;
 
@@ -45,24 +45,48 @@ char **split_command(char *line)
 }
 
 /*
-* ft_extend est une fonction qui enleve les guillemets d'indication
+* ft_extend est une fonction qui enleve les guillemets de type '
 * et remplace le nom des variables d'environnement par leurs valeurs
-*
-char *ft_extend(char *str, int i)
-{
-	int start;
-
-	while (command[i] == ' ')
-		i++;
-	start = i;
-	while (command[i] != ' ' && command[i])
-	{
-		i = skip_quotes(command, i);
-		i++;
-	}
-	return (ft_strndup(&command[start], i - start));
-}
 */
+char *ft_extend(char *str)
+{
+	t_list *lst;
+	int start;
+	int	i;
+	char 	*var_name;
+	char	*var_value;
+
+	i = 0;
+	lst = NULL;
+	while (str[i] == ' ')
+		i++;
+	while (str[i])
+	{
+		start = i;
+		while (str[i] && !ft_isin(str[i], "'$")) // il faut ajouter le "
+			i++;
+		ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start], i - start)));
+		start = i;
+		if (str[i] == '\'')
+		{
+			i = skip_quotes(str, i);
+			ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start + 1], i - 2 - start)));
+		}
+		else if (str[i] == '$')
+		{
+			i++;
+			while (str[i] && !ft_isin(str[i], " '$"))
+				i++;
+			var_name = ft_strndup(&str[start + 1], i - 1 - start);
+			var_value = getenv(var_name);
+			if (!var_value)
+				var_value = "";
+			ft_lstadd_back(&lst, ft_lstnew(ft_strdup(var_value)));
+			free(var_name);
+		}
+	}
+	return (ft_lstjoin(lst));
+}
 
 t_redir	parse_redir(char **elem)
 {
@@ -72,7 +96,7 @@ t_redir	parse_redir(char **elem)
 	i = 0;
 	while (elem[i])
 	{
-		// printf("%s\n", elem[i]);
+		printf("%s\n", elem[i]);
 		if (elem[i][0] == '<')
 		{
 			if (elem[i][1] == '<')
@@ -80,7 +104,7 @@ t_redir	parse_redir(char **elem)
 			else
 				res.heredoc = 0;
 			free(res.infile);
-			//redir.infile = ft_extend(&elem[i][1 + res.heredoc]);
+			res.infile = ft_extend(&elem[i][1 + res.heredoc]);
 			free(elem[i]);
 			elem[i] = (void*)1;
 		}
@@ -91,7 +115,7 @@ t_redir	parse_redir(char **elem)
 			else
 				res.outcat = 0;
 			free(res.outfile);
-			//redir.outfile = ft_extend(&elem[i][1 + res.outcat]);
+			res.outfile = ft_extend(&elem[i][1 + res.outcat]);
 			free(elem[i]);
 			elem[i] = (void*)1;
 		}
@@ -137,7 +161,9 @@ int parse_process(char *command)
 
 	elem = split_command(command);
 	io = parse_redir(elem);
-	elem = construct_argv(elem);
+	printf("Infile : %s\n", io.infile);
+	printf("Outfile : %s\n", io.outfile);
+	//elem = construct_argv(elem);
 	
 	return (0);
 }

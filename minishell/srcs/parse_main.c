@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/13 15:08:17 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/18 18:12:34 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int launch_processes(char **commands)
 	while (i > 0 && pid == 0)
 	{
 		pid = fork();
-		// gerer erreur
+		// gerer erreur et creer les pipes
 		if (pid == 0)
 			i--;
 	}

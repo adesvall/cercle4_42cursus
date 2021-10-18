@@ -15,7 +15,7 @@ $(NAME):	${OBJS} libft/libft.a
 			clang ${CFLAGS} -c $< -o ${<:.c=.o}
 
 libft/libft.a:
-			make -C libft
+			make -C libft bonus
 
 clean:
 			rm -f ${OBJS}
