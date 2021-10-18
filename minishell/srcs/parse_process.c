@@ -6,43 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/18 18:11:55 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/18 23:03:43 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-typedef struct s_redir
-{
-	char	*infile;
-	int		heredoc;
-	char	*outfile;
-	int		outcat;
-}			t_redir;
-
-char **split_command(char *line) // il faut changer ça, "cat>out"
-{
-	int i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (ft_isin(line[i], "<>"))
-		{
-			i = skip_redir(line, i);
-			continue;
-		}	
-		if (ft_isin(line[i], "\"'"))
-		{
-			i = skip_quotes(line, i);
-			continue;
-		}	
-		if (line[i] == ' ')
-			line[i] = '\n';
-		i++;
-	}
-	return (ft_split(line, '\n'));
-}
 
 /*
 * ft_extend est une fonction qui enleve les guillemets de type '
@@ -50,20 +18,20 @@ char **split_command(char *line) // il faut changer ça, "cat>out"
 */
 char *ft_extend(char *str)
 {
-	t_list *lst;
-	int start;
-	int	i;
+	t_list	*lst;
+	int		i;
+	int 	start;
 	char 	*var_name;
 	char	*var_value;
 
-	i = 0;
 	lst = NULL;
+	i = 0;
 	while (str[i] == ' ')
 		i++;
 	while (str[i])
 	{
 		start = i;
-		while (str[i] && !ft_isin(str[i], "'$")) // il faut ajouter le "
+		while (str[i] && !ft_isin(str[i], "'$\""))
 			i++;
 		ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start], i - start)));
 		start = i;
@@ -72,7 +40,7 @@ char *ft_extend(char *str)
 			i = skip_quotes(str, i);
 			ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start + 1], i - 2 - start)));
 		}
-		else if (str[i] == '$')
+		else if (str[i] == '$') // il faut ajouter le "
 		{
 			i++;
 			while (str[i] && !ft_isin(str[i], " '$"))
@@ -85,85 +53,113 @@ char *ft_extend(char *str)
 			free(var_name);
 		}
 	}
+	free(str);
 	return (ft_lstjoin(lst));
 }
 
-t_redir	parse_redir(char **elem)
+t_redir	parse_redir(char **command)
 {
 	int i;
+	int start;
 	t_redir res = (t_redir){0, 0, 0, 0};
+	t_list *lst;
+	char *comm;
 
+	comm = *command;
 	i = 0;
-	while (elem[i])
+	lst = NULL;
+	while (comm[i])
 	{
-		printf("%s\n", elem[i]);
-		if (elem[i][0] == '<')
+		if (ft_isin(comm[i], "\"'"))
+			i = skip_quotes(comm, i);
+		start = i;
+		if (comm[i] == '<')
 		{
-			if (elem[i][1] == '<')
+			if (comm[i + 1] == '<')
 				res.heredoc = 1;
 			else
 				res.heredoc = 0;
 			free(res.infile);
-			res.infile = ft_extend(&elem[i][1 + res.heredoc]);
-			free(elem[i]);
-			elem[i] = (void*)1;
+			i = skip_redir(comm, i);
+			res.infile = ft_extend(ft_strndup(&comm[start + 1 + res.heredoc], i - 1 - res.heredoc - start));
 		}
-		else if (elem[i][0] == '>')
+		else if (comm[i] == '>')
 		{
-			if (elem[i][1] == '>')
+			if (comm[i + 1] == '>')
 				res.outcat = 1;
 			else
 				res.outcat = 0;
 			free(res.outfile);
-			res.outfile = ft_extend(&elem[i][1 + res.outcat]);
-			free(elem[i]);
-			elem[i] = (void*)1;
+			i = skip_redir(comm, i);
+			res.outfile = ft_extend(ft_strndup(&comm[start + 1 + res.outcat], i - 1 - res.outcat - start));
 		}
-		i++;
+		else
+		{
+			i = skip_notredir(comm, i);
+			ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&comm[start], i - start)));
+		}
 	}
+	free(comm);
+	*command = ft_lstjoin(lst);
 	return (res);
 }
 
-char **construct_argv(char **elem)
+char **construct_argv(char *line)
 {
 	int i;
-	int len;
-	char **res;
+	char **tab;
 
 	i = 0;
-	len = 0;
-	while (elem[i])
+	while (line[i])
 	{
-		if (elem[i] != (void*)1)
-			len++;
-		i++;
+		if (line[i] == '"' || line[i] == '\'')
+			i = skip_quotes(line, i);
+		else if (line[i] == ' ')
+			line[i++] = '\n';
+		else
+			i++;
 	}
-	res = malloc((len + 1) * sizeof(char *));
+	tab = ft_split(line, '\n');
+	
 	i = 0;
-	while (elem[i])
+	while (tab[i])
 	{
-		if (elem[i] != (void*)1)
-		{
-			// res[i] = ft_extend(elem[i]);
-			free(elem[i]);
-		}
+		tab[i] = ft_extend(tab[i]);
 		i++;
 	}
-	res[len] = NULL;
-	free(elem);
-	return (res);
+	return (tab);
+}
+
+int disp_tab(char *argv[])
+{
+	int i=0;
+	while (argv[i])
+	{
+		printf("%s\n", argv[i]);
+		i++;
+	}
+	return 0;
 }
 
 int parse_process(char *command)
 {
-	char **elem;
+	char **argv;
 	t_redir io;
 
-	elem = split_command(command);
-	io = parse_redir(elem);
+	io = parse_redir(&command);
+
+	printf("Command : %s\n", command);
 	printf("Infile : %s\n", io.infile);
 	printf("Outfile : %s\n", io.outfile);
-	//elem = construct_argv(elem);
 	
+	argv = construct_argv(command);
+	disp_tab(argv);
+
+	// exec_command(io, argv);
+
+	ft_abort(argv);
+	free(io.infile);
+	free(io.outfile);
+	free(command);
 	return (0);
 }

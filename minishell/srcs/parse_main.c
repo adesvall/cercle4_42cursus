@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/18 18:12:34 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/18 21:55:46 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ char **split_processes(char *line)
 	{
 		if (line[i] == '"' || line[i] == '\'')
 			i = skip_quotes(line, i);
-		if (line[i] == '|')
-			line[i] = '\n';
-		i++;
+		else if (line[i] == '|')
+			line[i++] = '\n';
+		else
+			i++;
 	}
 	return (ft_split(line, '\n'));
 }
@@ -61,6 +62,6 @@ int parse_line(char *line)
 
 	commands = split_processes(line);
 	launch_processes(commands);
-	free(commands);
+	ft_abort(commands);
 	return (0);
 }

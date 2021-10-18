@@ -1,10 +1,11 @@
 NAME		= minishell
 
-SRCS		= srcs/main.c srcs/parse_main.c srcs/parse_process.c srcs/parse_utils.c
+SRCS		= srcs/main.c srcs/parse_main.c srcs/parse_process.c srcs/parse_utils.c \
+				srcs/exec_command.c
 
 OBJS		= ${SRCS:.c=.o}
 
-CFLAGS		= -Wall -Wextra -Werror -I.
+CFLAGS		= -Wall -Wextra -Werror -I. -fsanitize=address
 
 all:		${NAME}
 

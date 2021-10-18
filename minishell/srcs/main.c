@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/13 15:00:24 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/18 22:54:29 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	sig_init(void)
 
 int main()
 {
-	extern char **environ;
+	extern char **env;
 	char *line;
 
 	if (sig_init())
@@ -50,6 +50,8 @@ int main()
 	while (line)
 	{
 		// printf("%s\n", line);
+		if (line && *line)
+			add_history(line);
 		parse_line(line);
 		free(line);
 		line = readline(PROMPT);

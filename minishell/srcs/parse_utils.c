@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 01:44:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/18 17:48:21 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/18 21:18:00 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int    skip_quotes(char *line, int i)
 {
 	char c;
 
-	// if (line[i] != '\'' && line[i] != '"')
-	// 	return (i);
 	c = line[i];
 	i++;
 	while (line[i + 1] && line[i] != c)
@@ -29,14 +27,29 @@ int skip_redir(char *line, int i)
 {
 	char c;
 
-	// if (line[i] != '<' && line[i] != '>')
-	// 	return (i);
 	c = line[i];
 	i++;
 	if (line[i] == c)
 		i++;
 	while (line[i] == ' ')
 		i++;
+	while (line[i] && !ft_isin(line[i], " ><"))
+	{
+		if (ft_isin(line[i], "'\""))
+			i = skip_quotes(line, i) - 1;
+		i++;
+	}
+	return (i);
+}
+
+int skip_notredir(char *line, int i)
+{
+	while (line[i] && !ft_isin(line[i], "<>"))
+	{
+		if (ft_isin(line[i], "\"'"))
+			i = skip_quotes(line, i) - 1;
+		i++;
+	}
 	return (i);
 }
 /*
