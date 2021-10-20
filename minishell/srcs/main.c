@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/18 22:54:29 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/20 19:57:24 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	sig_init(void)
 	return (0);
 }
 
-int main()
+int main(int ac, char **av, char **env)
 {
-	extern char **env;
 	char *line;
 
+	ac=(ac+(int)av);
 	if (sig_init())
 		return (0);
 	line = readline(PROMPT);
@@ -52,7 +52,7 @@ int main()
 		// printf("%s\n", line);
 		if (line && *line)
 			add_history(line);
-		parse_line(line);
+		parse_line(line, env);
 		free(line);
 		line = readline(PROMPT);
 	}

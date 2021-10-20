@@ -1,7 +1,7 @@
 NAME		= minishell
 
 SRCS		= srcs/main.c srcs/parse_main.c srcs/parse_process.c srcs/parse_utils.c \
-				srcs/exec_command.c
+				srcs/exec_command.c srcs/extend.c srcs/error.c
 
 OBJS		= ${SRCS:.c=.o}
 

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/18 23:03:25 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/20 20:56:39 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,28 +54,36 @@ char	*parse_path(char *path, char *cmd)
 	return (find_access(dir, tmp));
 }
 
-int	exec_command(t_redir io, char **argv)
+int	exec_command(t_command exe, char **env)
 {
 	int fdin;
 	char *path;
 	int fdout;
+	t_redir io = exe.io;
+	char **argv = exe.argv;
 
-	fdin = -2;
-	fdout= -2;
-	if (io.infile && !io.heredoc)
-		fdin = open(io.infile, O_RDONLY);
-	// if (fdout == -1)
-	// 	ft_exit(errno, io.outfile, "can't open file", p);
-	if (io.outfile && !io.outcat)
-		fdout = open(io.outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (io.outfile && io.outcat)
-		fdout = open(io.outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	// if (fdout == -1)
-	// 	ft_exit(errno, io.outfile, "can't open file", p);
+	fdin = io.heredoc;
+	fdout= io.outcat;
+	if (io.infile)
+	{
+		if (!io.heredoc)
+			fdin = open(io.infile, O_RDONLY);
+		if (fdout == -1)
+			ft_exit(errno, io.outfile, "can't open file", &exe);
+	}
+	if (io.outfile)
+	{
+		if (!io.outcat)
+			fdout = open(io.outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else
+			fdout = open(io.outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (fdout == -1)
+			ft_exit(errno, io.outfile, "can't open file", &exe);
+	}
 
 	path = parse_path(getenv("PATH"), argv[0]);
-	// if (path)
-	// 	ft_exit(0, p->cmd1[0], "command not found", p);
+	if (!path)
+	 	ft_exit(0, argv[0], "command not found", &exe);
 	if (fdin != STDIN_FILENO)
 	{
 		dup2(fdin, STDIN_FILENO);
@@ -87,7 +95,6 @@ int	exec_command(t_redir io, char **argv)
 		close(fdout);
 	}
 	if (execve(path, argv, env) == -1)
-	//	ft_exit(errno, "can't execute command", argv[0], p);
-		;
+		ft_exit(errno, "can't execute command", argv[0], &exe);
 	return (1);
 }
