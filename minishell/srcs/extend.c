@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 19:36:49 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/20 21:51:22 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/21 22:38:26 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	extend_quotes(char *str, int i, t_list **lst)
 		if (str[i] == '$')
 		{
 			i++;
-			while (str[i] && !ft_isin(str[i], " '\"$"))
+			while (str[i] && ft_isalnum(str[i]))
 				i++;
 			var_name = ft_strndup(&str[start + 1], i - 1 - start);
 			var_value = getenv(var_name);

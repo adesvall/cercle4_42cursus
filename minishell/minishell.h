@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/20 20:40:40 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/21 22:42:52 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_command
 
 int		parse_line(char *line, char **env);
 int 	parse_process(char *command, int fdin, int fdout, char **env);
-int		exec_command(t_command exe, char **env);
+int		exec_command(t_command *exe, char **env);
 int		ft_exit(int code, char *str, char *str2, t_command *exe);
 
 char	*ft_lstjoin(t_list *lst);
