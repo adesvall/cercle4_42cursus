@@ -6,11 +6,13 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/20 19:57:24 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/24 17:40:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile int exit_status = 0;
 
 void handle_sig(int sig)
 {
@@ -43,7 +45,8 @@ int main(int ac, char **av, char **env)
 {
 	char *line;
 
-	ac=(ac+(int)av);
+	(void)ac;
+	(void)av;
 	if (sig_init())
 		return (0);
 	line = readline(PROMPT);
@@ -52,7 +55,7 @@ int main(int ac, char **av, char **env)
 		// printf("%s\n", line);
 		if (line && *line)
 			add_history(line);
-		parse_line(line, env);
+		parse_line(line, env, &exit_status);
 		free(line);
 		line = readline(PROMPT);
 	}

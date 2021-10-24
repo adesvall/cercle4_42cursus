@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/21 22:43:18 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/24 16:24:40 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_redir	parse_redir(char **command, int fdin, int fdout)
 				res.heredoc = 0;
 			free(res.infile);
 			i = skip_redir(comm, i);
-			res.infile = ft_extend(ft_strndup(&comm[start + 1 + res.heredoc], i - 1 - res.heredoc - start));
+			res.infile = ft_extend(ft_strndup(&comm[start + 1 + res.heredoc], i - 1 - res.heredoc - start), !res.heredoc, 1);
 		}
 		else if (comm[i] == '>')
 		{
@@ -46,7 +46,7 @@ t_redir	parse_redir(char **command, int fdin, int fdout)
 				res.outcat = 0;
 			free(res.outfile);
 			i = skip_redir(comm, i);
-			res.outfile = ft_extend(ft_strndup(&comm[start + 1 + res.outcat], i - 1 - res.outcat - start));
+			res.outfile = ft_extend(ft_strndup(&comm[start + 1 + res.outcat], i - 1 - res.outcat - start), 1, 1);
 		}
 		else
 		{
@@ -64,6 +64,7 @@ char **construct_argv(char *line)
 	int i;
 	char **tab;
 
+	line = ft_extend(line, 1, 0);
 	i = 0;
 	while (line[i])
 	{
@@ -79,7 +80,7 @@ char **construct_argv(char *line)
 	i = 0;
 	while (tab[i])
 	{
-		tab[i] = ft_extend(tab[i]);
+		tab[i] = ft_extend(tab[i], 1, 1);
 		i++;
 	}
 	return (tab);

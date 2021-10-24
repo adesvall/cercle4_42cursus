@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/21 22:42:47 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/10/24 16:49:27 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,13 @@ int	exec_command(t_command *exe, char **env)
 	char **argv = exe->argv;
 
 	fdin = exe->io.heredoc;
-	fdout= exe->io.outcat;
+	fdout = exe->io.outcat;
 	if (exe->io.infile)
 	{
 		if (!exe->io.heredoc)
 			fdin = open(exe->io.infile, O_RDONLY);
+		else
+			fdin = heredoc(exe->io.infile);
 		if (fdout == -1)
 			ft_exit(errno, exe->io.outfile, "can't open file", exe);
 	}
