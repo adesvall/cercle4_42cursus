@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/24 17:47:09 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/06 18:09:40 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,27 @@ typedef struct s_command
 	char **argv;
 }				t_command;
 
-int		parse_line(char *line, char **env, int *exit_status);
+typedef struct s_var
+{
+	char *name;
+	char *value;
+	struct s_var *next;
+}				t_var;
+
+typedef struct s_data
+{
+	int	exit_status;
+	int	is_running;
+}				t_data;
+
+int		parse_line(char *line, char **env, int exit_status);
 int 	parse_process(char *command, int fdin, int fdout, char **env);
 int		exec_command(t_command *exe, char **env);
+int 	is_builtin(char *cmd);
+int		exec_builtin(t_command *exe, t_var **env);
 int		heredoc(char *delim);
 int		ft_exit(int code, char *str, char *str2, t_command *exe);
+void	print_error(char *str, char *str2);
 
 char	*ft_lstjoin(t_list *lst);
 int		skip_quotes(char *line, int i);

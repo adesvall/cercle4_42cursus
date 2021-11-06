@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/24 17:41:09 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/06 17:44:52 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char **split_processes(char *line)
 	return (ft_split(line, '\n'));
 }
 
-int launch_processes(char **commands, char **env, int *exit_status)
+int launch_processes(char **commands, char **env, int exit_status)
 {
 	int i;
 	int pid;
@@ -70,16 +70,17 @@ int launch_processes(char **commands, char **env, int *exit_status)
 		wait(NULL);
 		exit(0);
 	}
-	wait(exit_status);
-	return (0);
+	wait(&exit_status);
+	return (exit_status);
 }
 
-int parse_line(char *line, char **env, int *exit_status)
+int parse_line(char *line, char **env, int exit_status)
 {
 	char **commands;
+	int	ret;
 
 	commands = split_processes(line);
-	launch_processes(commands, env, exit_status);
+	ret = launch_processes(commands, env, exit_status);
 	ft_abort(commands);
-	return (0);
+	return (ret);
 }

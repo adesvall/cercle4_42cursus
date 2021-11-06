@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/24 16:49:27 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/06 18:16:14 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,12 @@ int	exec_command(t_command *exe, char **env)
 		if (fdout == -1)
 			ft_exit(errno, exe->io.outfile, "can't open file", exe);
 	}
-
-	path = parse_path(getenv("PATH"), argv[0]);
-	if (!path)
-	 	ft_exit(0, argv[0], "command not found", exe);
+	if (!is_builtin(argv[0]))
+	{
+		path = parse_path(getenv("PATH"), argv[0]);
+		if (!path)
+			ft_exit(0, argv[0], "command not found", exe);
+	}
 	if (fdin != STDIN_FILENO)
 	{
 		dup2(fdin, STDIN_FILENO);
@@ -95,7 +97,9 @@ int	exec_command(t_command *exe, char **env)
 		dup2(fdout, STDOUT_FILENO);
 		close(fdout);
 	}
-	if (execve(path, argv, env) == -1)
+	if (is_builtin(argv[0]))
+		exit(exec_builtin(exe, env));
+	else if (execve(path, argv, env) == -1)
 		ft_exit(errno, "can't execute command", argv[0], exe);
-	return (1);
+	exit(0);
 }
