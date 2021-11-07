@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/24 16:24:40 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/07 19:33:58 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int disp_tab(char *argv[])
 	return 0;
 }
 
-int parse_process(char *command, int fdin, int fdout, char **env)
+int parse_process(char *command, int fdin, int fdout)
 {
 	t_command exe;
 
@@ -111,7 +111,7 @@ int parse_process(char *command, int fdin, int fdout, char **env)
 	exe.argv = construct_argv(command);
 	disp_tab(exe.argv);
 
-	exec_command(&exe, env);
+	exec_command(&exe);
 
 	free(command);
 	return (0);

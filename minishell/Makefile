@@ -1,9 +1,25 @@
 NAME		= minishell
 
-SRCS		= srcs/main.c \
-				srcs/parse_main.c srcs/parse_process.c srcs/parse_utils.c \
-				srcs/exec_command.c srcs/extend.c srcs/error.c srcs/heredoc.c \
-				srcs/exec_builtin.c
+PARSING		= $(addprefix parsing/, extend.c \
+									parse_main.c \
+									parse_process.c \
+									parse_utils.c)
+
+EXEC		= $(addprefix exec/, exec_builtin.c \
+								exec_command.c \
+								exec_heredoc.c)
+
+BUILTIN		= $(addprefix builtin/, env1.c \
+									env2.c \
+									ft_cd.c \
+									ft_pwd.c \
+									ft_export.c \
+									ft_unset.c \
+									ft_echo.c \
+									ft_env.c \
+									)
+
+SRCS		= $(addprefix srcs/, main.c error.c $(PARSING) $(EXEC) $(BUILTIN))
 
 OBJS		= ${SRCS:.c=.o}
 

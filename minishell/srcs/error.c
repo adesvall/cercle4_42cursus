@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 20:16:53 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/20 20:59:00 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/07 16:34:27 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,5 @@ int	ft_exit(int code, char *s, char *s2, t_command *exe)
 		free(exe->io.outfile);
 		ft_abort(exe->argv);
 	}
-	// if (p)
-	// {
-	// 	if (p->cmd1)
-	// 		ft_abort(p->cmd1);
-	// 	if (p->cmd2)
-	// 		ft_abort(p->cmd2);
-	// 	free(p->path1);
-	// 	free(p->path2);
-	// }
 	exit(code);
 }

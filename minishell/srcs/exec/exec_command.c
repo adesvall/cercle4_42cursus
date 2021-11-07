@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/06 18:16:14 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/07 19:39:59 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 char	*find_access(char **dir, char *cmd)
 {
@@ -54,7 +54,7 @@ char	*parse_path(char *path, char *cmd)
 	return (find_access(dir, tmp));
 }
 
-int	exec_command(t_command *exe, char **env)
+int	exec_command(t_command *exe)
 {
 	int fdin;
 	char *path;
@@ -87,6 +87,8 @@ int	exec_command(t_command *exe, char **env)
 		if (!path)
 			ft_exit(0, argv[0], "command not found", exe);
 	}
+	else
+		path = argv[0];
 	if (fdin != STDIN_FILENO)
 	{
 		dup2(fdin, STDIN_FILENO);
@@ -97,9 +99,10 @@ int	exec_command(t_command *exe, char **env)
 		dup2(fdout, STDOUT_FILENO);
 		close(fdout);
 	}
+	add_var(&g.env, "_", path);
 	if (is_builtin(argv[0]))
-		exit(exec_builtin(exe, env));
-	else if (execve(path, argv, env) == -1)
+		exit(exec_builtin(exe, &g.env));
+	else if (execve(path, argv, unload_env(g.env)) == -1)
 		ft_exit(errno, "can't execute command", argv[0], exe);
 	exit(0);
 }

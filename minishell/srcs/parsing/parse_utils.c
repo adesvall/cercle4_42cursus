@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 01:44:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/18 21:18:00 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/07 16:28:45 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,6 @@ int skip_notredir(char *line, int i)
 	}
 	return (i);
 }
-/*
-* peut se reveler tres tres tres inutile
-char *find_var(char **environ, char *var_name)
-{
-	int i;
-	int len;
-
-	len =  ft_strlen(var_name);
-	i = 0;
-	while (environ[i])
-	{
-		if (!ft_strncmp(environ[i], var_name, len) \
-				&& environ[i][len] == '=')
-			return (ft_strdup(&environ[i][len]));
-		i++;
-	}
-	return (ft_strdup(""));
-}*/
 
 char *ft_lstjoin(t_list *lst)
 {

@@ -6,13 +6,13 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 15:13:17 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/07 19:41:19 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-volatile t_data g = {.exit_status = 0, .is_running = 0};
+t_data g = {.exit_status = 0, .is_running = 0, .env = NULL};
 
 void handle_sig(int sig)
 {
@@ -51,6 +51,7 @@ int main(int ac, char **av, char **env)
 	(void)av;
 	if (sig_init())
 		return (0);
+	g.env = load_env(env);
 	line = readline(PROMPT);
 	while (line)
 	{
@@ -58,7 +59,7 @@ int main(int ac, char **av, char **env)
 		if (line && *line)
 			add_history(line);
 		g.is_running = 1;
-		g.exit_status = parse_line(line, env, g.exit_status);
+		g.exit_status = parse_line(line, g.exit_status);
 		g.is_running = 0;
 		free(line);
 		line = readline(PROMPT);

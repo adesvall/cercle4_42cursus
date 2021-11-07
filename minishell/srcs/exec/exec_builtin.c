@@ -6,11 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/06 17:23:41 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/07 19:32:32 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 int is_builtin(char *cmd)
 {
@@ -43,11 +43,3 @@ int	exec_builtin(t_command *exe, t_var **env)
 		return (ft_exit(0, NULL, NULL, exe));
 	return (-2);
 }
-
-int		ft_cd(char **args, t_var *var_list);
-int		ft_echo(char **args);
-int		ft_env(char **args, t_var *var_list);
-
-int		ft_export(char **args, t_var **var_list_ptr);
-int		ft_pwd(char **args, t_var *var_list);
-int		ft_unset(char **args, t_var **var_list_ptr);

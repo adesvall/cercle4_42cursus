@@ -6,24 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 17:52:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 15:12:06 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/07 20:01:35 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h" 
-
-void	add_var(t_var **env, char *name, char *value)
-{
-	t_var	*tmp;
-
-	tmp = *env;
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->name, name))
-			tmp->value = value;
-		tmp = tmp->next;
-	}
-}
 
 int proceed_cd(char **argv, t_var *env)
 {
@@ -53,8 +40,8 @@ int	ft_cd(char **argv, t_var *env)
 
 	if (!argv[1])
 	{
-		home = get_var("HOME", env);
-		return (ft_cd((char**){"cd", home, NULL}, env));
+		home = get_var(env, "HOME");
+		return (ft_cd((char*[3]){"cd", home, NULL}, env));
 	}
 	if (argv[1] && argv[2])
 	{
