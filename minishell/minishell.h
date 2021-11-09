@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 20:07:40 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/09 20:52:20 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
-# include "srcs/builtin/builtins.h"
+# include "srcs/builtins/builtins.h"
 
 # define PROMPT "mini\033[34mshell\033[00m : "
 
@@ -39,6 +39,7 @@ typedef struct s_command
 {
 	t_redir io;
 	char **argv;
+	char **env;
 }				t_command;
 
 typedef struct s_data
@@ -50,19 +51,19 @@ typedef struct s_data
 
 extern t_data g;
 
-int		parse_line(char *line, int exit_status);
-int 	parse_process(char *command, int fdin, int fdout);
-int		exec_command(t_command *exe);
-int 	is_builtin(char *cmd);
-int		exec_builtin(t_command *exe, t_var **env);
-int		heredoc(char *delim);
-int		ft_exit(int code, char *str, char *str2, t_command *exe);
-void	print_error(char *str, char *str2);
+int			parse_line(char *line, int exit_status);
+t_command	**parse_processes(char **command);
+int			exec_command(t_command *exe, int fdin, int fdout);
+int 		is_builtin(char *cmd);
+int			exec_builtin(t_command *exe, t_var **env);
+int			heredoc(char *delim);
+int			ft_exit(int code, char *str, char *str2, t_command *exe);
+void		print_error(char *str, char *str2);
 
-char	*ft_lstjoin(t_list *lst);
-int		skip_quotes(char *line, int i);
-int		skip_redir(char *line, int i);
-int 	skip_notredir(char *line, int i);
-char 	*ft_extend(char *str, int extand_vars, int extand_quotes);
+char		*ft_lstjoin(t_list *lst);
+int			skip_quotes(char *line, int i);
+int			skip_redir(char *line, int i);
+int 		skip_notredir(char *line, int i);
+char 		*ft_extend(char *str, int extand_vars, int extand_quotes);
 
 #endif

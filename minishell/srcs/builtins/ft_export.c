@@ -5,21 +5,21 @@ void	sort_tab(t_var	**tab)
 	int		i;
 	int		j;
 	t_var	*tmp;
-	t_var	*min;
+	int		imin;
 
 	i=0;
 	while (tab[i])
 	{
-		min = tab[i];
+		imin = i;
 		j = i + 1;
 		while (tab[j])
 		{
-			if (ft_strcmp(min->name, tab[j]->name) > 0)
-				min = tab[j];
+			if (ft_strcmp(tab[imin]->name, tab[j]->name) > 0)
+				imin = j;
 			j++;
 		}
-		tmp = min;
-		min = tab[i];
+		tmp = tab[imin];
+		tab[imin] = tab[i];
 		tab[i] = tmp;
 		i++;
 	}
@@ -47,16 +47,15 @@ int export_sort(t_var *env)
 {
 	t_var	**tab;
 	int i;
-	int size;
 
-	size = env_size(env);
 	tab = get_tab(env);
 	i = 0;
 	while (tab[i])
 	{
-		printf("%s=%s\n", tab[i]->name, tab[i]->value);
+		printf("declare -x %s=%s\n", tab[i]->name, tab[i]->value);
 		i++;
 	}
+	free(tab);
     return (0);
 }
 

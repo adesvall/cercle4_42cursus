@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-//# include <stddef.h> Pour les size_t : a-t-on le droit dans le sujet ?
+# include <stddef.h>
 # include "../../libft/libft.h"
 
 typedef struct s_var	t_var;
@@ -24,7 +24,7 @@ int		ft_pwd(char **args, t_var *env); // a discuter
 int		ft_unset(char **args, t_var **envp); // OK
 
 void	destroy_var(t_var *var);
-void	clear_list(t_var **list);
+void	clear_env(t_var **list);
 t_var	*malloc_var(char *name, char *value);
 void	add_var(t_var **env, char *name, char *value);
 t_var	*load_env(char **args);

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "builtins.h"
 
-void	clear_list(t_var **list)
+void	clear_env(t_var **list)
 {
 	t_var	*var;
 	t_var	*tmp;
@@ -54,7 +54,7 @@ t_var	*load_env(char **args)
 		*ft_strchr(args[i], '\0') = '=';
 		if (!elem)
 		{
-			clear_list(&globals);
+			clear_env(&globals);
 			break ;
 		}
 		elem->next = globals;
@@ -79,6 +79,7 @@ char **unload_env(t_var *env)
 		i++;
 		env = env->next;
 	}
+	res[i] = NULL;
 	return (res);
 }
 

@@ -18,6 +18,7 @@ int	ft_echo(char **args)
 {
 	int	need_new_line;
 
+	args++;
 	need_new_line = 1;
 	if (args && *args)
 	{

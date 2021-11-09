@@ -20,7 +20,7 @@ int	print(t_var *env)
 
 int		ft_env(char **args, t_var *env)
 {
-	if (!args[0] && !args)
+	if (!args[1])
 	{
 		print(env);
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 19:41:03 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/09 20:48:26 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char **split_processes(char *line)
 	return (ft_split(line, '\n'));
 }
 
-int launch_processes(char **commands, int exit_status)
+int launch_processes(t_command **commands, int exit_status)
 {
 	int i;
 	int pid;
@@ -65,10 +65,9 @@ int launch_processes(char **commands, int exit_status)
 			tube[0] = 0;
 		else
 			close(tube[1]);
-		printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
-		parse_process(commands[i], tube[0], fdout);
+		exec_command(commands[i], tube[0], fdout);
 		wait(NULL);
-		exit(0);
+		exit(1);
 	}
 	wait(&exit_status);
 	return (exit_status);
@@ -77,10 +76,12 @@ int launch_processes(char **commands, int exit_status)
 int parse_line(char *line, int exit_status)
 {
 	char **commands;
+	t_command	**processes;
 	int	ret;
 
 	commands = split_processes(line);
-	ret = launch_processes(commands, exit_status);
-	ft_abort(commands);
+	processes = parse_processes(commands);
+	ret = launch_processes(processes, exit_status);
+	free(commands);
 	return (ret);
 }

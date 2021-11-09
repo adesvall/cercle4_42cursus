@@ -6,17 +6,17 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 19:33:58 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/09 20:44:15 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_redir	parse_redir(char **command, int fdin, int fdout)
+t_redir	parse_redir(char **command)
 {
 	int i;
 	int start;
-	t_redir res = (t_redir){0, fdin, 0, fdout};
+	t_redir res = (t_redir){0, STDIN_FILENO, 0, STDOUT_FILENO};
 	t_list *lst;
 	char *comm;
 
@@ -98,21 +98,32 @@ int disp_tab(char *argv[])
 	return 0;
 }
 
-int parse_process(char *command, int fdin, int fdout)
+t_command	**parse_processes(char **commands)
 {
-	t_command exe;
+	t_command **exe;
+	int i;
 
-	exe.io = parse_redir(&command, fdin, fdout);
+	i = 0;
+	while (commands[i])
+		i++;
+	exe = malloc(sizeof(t_command*) * (i + 1));
+	i = 0;
+	while (commands[i])
+	{
+		exe[i] = malloc(sizeof(t_command));
+		exe[i]->io = parse_redir(&commands[i]);
 
-	printf("  Command : %s\n", command);
-	printf("  Infile  : %s, fd is %d\n", exe.io.infile, fdin);
-	printf("  Outfile : %s, fd is %d\n", exe.io.outfile, fdout);
-	
-	exe.argv = construct_argv(command);
-	disp_tab(exe.argv);
+		printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
+		printf("  Command : %s\n", commands[i]);
+		// printf("  Infile  : %s, fd is %d\n", exe[i]->io.infile, fdin);
+		// printf("  Outfile : %s, fd is %d\n", exe[i]->io.outfile, fdout);
+		
+		exe[i]->argv = construct_argv(commands[i]);
+		disp_tab(exe[i]->argv);
+		free(commands[i]);
 
-	exec_command(&exe);
-
-	free(command);
-	return (0);
+		exe[i]->env = NULL;
+	}
+	exe[i] = NULL;
+	return (exe);
 }

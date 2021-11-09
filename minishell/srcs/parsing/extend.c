@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 19:36:49 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 19:05:23 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:50:39 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,20 @@ int extend_var(char *str, int i, t_list **lst)
 
 	start = i;
 	i++;
-	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
+	if (str[i] == '?')
+	{
+		ft_lstadd_back(lst, ft_lstnew(ft_itoa(g.exit_status)));
+		return (i + 1);
+	}	
+	while (ft_isalnum(str[i]) || str[i] == '_')
 		i++;
 	var_name = ft_strndup(&str[start + 1], i - 1 - start);
 	var_value = get_var(g.env, var_name);
+	free(var_name);
 	if (!var_value)
-		var_value = "";
-	ft_lstadd_back(lst, ft_lstnew(ft_strdup(var_value)));
+		var_value = "zrgz";
+	else
+		ft_lstadd_back(lst, ft_lstnew(ft_strdup(var_value)));
 	return (i);
 }
 

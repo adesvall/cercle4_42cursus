@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 19:41:19 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/09 19:38:08 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int main(int ac, char **av, char **env)
 	while (line)
 	{
 		// printf("%s\n", line);
-		if (line && *line)
+		if (*line) // verifier si la ligne ne contient que des whitespaces
 			add_history(line);
 		g.is_running = 1;
 		g.exit_status = parse_line(line, g.exit_status);

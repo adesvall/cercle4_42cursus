@@ -9,7 +9,7 @@ EXEC		= $(addprefix exec/, exec_builtin.c \
 								exec_command.c \
 								exec_heredoc.c)
 
-BUILTIN		= $(addprefix builtin/, env1.c \
+BUILTIN		= $(addprefix builtins/, env1.c \
 									env2.c \
 									ft_cd.c \
 									ft_pwd.c \
@@ -19,19 +19,28 @@ BUILTIN		= $(addprefix builtin/, env1.c \
 									ft_env.c \
 									)
 
-SRCS		= $(addprefix srcs/, main.c error.c $(PARSING) $(EXEC) $(BUILTIN))
+PURESRCS	= main.c error.c $(PARSING) $(EXEC) $(BUILTIN)
 
-OBJS		= ${SRCS:.c=.o}
+SRCS		= $(addprefix srcs/, $(PURESRCS))
+
+OBJS		= $(addprefix objs/, $(PURESRCS:.c=.o))
 
 CFLAGS		= -Wall -Wextra -Werror -I. -fsanitize=address
 
 all:		${NAME}
 
 $(NAME):	${OBJS} libft/libft.a
+			echo $(OBJS)
 			clang ${CFLAGS} -lreadline -o ${NAME} ${OBJS} libft/libft.a
 
-.c.o:
-			clang ${CFLAGS} -c $< -o ${<:.c=.o}
+objs/%.o:	srcs/%.c objs
+			clang $(CFLAGS) -o $@ -c $<
+
+objs:
+			@mkdir objs
+			@mkdir objs/exec
+			@mkdir objs/builtins
+			@mkdir objs/parsing
 
 libft/libft.a:
 			make -C libft bonus

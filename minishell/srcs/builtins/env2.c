@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 18:47:42 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 18:55:51 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/09 18:21:42 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char *get_var(t_var *env, char *name)
 {
-	while (env->next)
+	while (env)
 	{
 		if (!ft_strcmp(env->name, name))
 			return (env->value);
