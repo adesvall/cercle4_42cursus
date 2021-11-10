@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 20:16:53 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 02:19:44 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:36:25 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int	ft_exit(int code, char *s, char *s2, t_command **exe)
 	print_error(s, s2);
 	if (exe)
 		free_commands(exe);
+	clear_env(&g.env);
 	exit(code);
 }

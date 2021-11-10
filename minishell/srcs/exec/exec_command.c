@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 02:26:28 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/10 18:00:52 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 			fdin = open(exe->io.infile, O_RDONLY);
 		else
 			fdin = heredoc(exe->io.infile);
-		if (fdout == -1)
-			ft_exit(errno, exe->io.outfile, "can't open file", commands);
+		if (fdin == -1)
+			ft_exit(errno, exe->io.infile, "can't open file", commands);
 	}
 	if (exe->io.outfile)
 	{
@@ -80,9 +80,12 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 	}
 	// if (!is_builtin(exe->argv[0]))
 	// {
-		path = parse_path(get_var(g.env, "PATH"), exe->argv[0]);
-		if (!path)
-			ft_exit(0, exe->argv[0], "command not found", commands);
+	path = parse_path(get_var(g.env, "PATH"), exe->argv[0]);
+	if (!path)	{
+		free(path);
+		exit(0);
+		ft_exit(0, exe->argv[0], "command not found", commands);
+	}
 	// }
 	// else
 	// 	path = exe->argv[0];

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 02:33:00 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/10 16:37:06 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,9 @@ int			skip_quotes(char *line, int i);
 int			skip_redir(char *line, int i);
 int 		skip_notredir(char *line, int i);
 char 		*ft_extend(char *str, int extand_vars, int extand_quotes);
+
+
+
+int disp_tab(char *argv[]);
 
 #endif

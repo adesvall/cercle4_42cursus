@@ -1,33 +1,13 @@
 
 #include <signal.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-volatile int myvar = 0;
-
-extern volatile int myvar;
 
 int main() {
-	int a =0;
-	
+	char *text;
+
+	text = malloc(20);
 	int pid = fork();
-	if (pid > 0) {
-		while (myvar < 100){
-			myvar++;
-
-		}
-	} else {
-		while (myvar < 150){
-			myvar++;
-
-		}
-	}
-	printf("%d : %d\n", pid, myvar);
-	sleep(2);
-	if (pid > 0) {
-	} else {
-		myvar++;
-	
-	}
-	printf("%d : %d\n", pid, myvar);
+	free(text);
  }

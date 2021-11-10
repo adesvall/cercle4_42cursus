@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 02:09:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 02:47:02 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/10 17:47:36 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	free_commands(t_command **command)
 
 void	free_command(t_command *command)
 {
+	disp_tab(command->argv);
 	free(command->io.infile);
 	free(command->io.outfile);
 	ft_abort(command->argv);
@@ -51,11 +52,10 @@ int launch_processes(t_command **commands, int exit_status)
 	{
 		if (commands[i])
 			if (pipe(tube))
-				ft_exit(errno, "Error", "pipe", NULL);
-		
+				ft_exit(errno, "Error", "pipe", commands);
 		pid = fork();
 		if (pid == -1)
-			ft_exit(errno, "Error", "fork", NULL);
+			ft_exit(errno, "Error", "fork", commands);
 		if (pid == 0)
 		{
 			if (commands[i])
@@ -74,6 +74,7 @@ int launch_processes(t_command **commands, int exit_status)
 			close(tube[1]);
 		exec_command(commands, i, tube[0], fdout);
 		wait(NULL);
+		printf("olala\n");
 		exit(1);
 	}
 	wait(&exit_status);
