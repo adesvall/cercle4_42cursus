@@ -5,7 +5,8 @@ PARSING		= $(addprefix parsing/, extend.c \
 									parse_process.c \
 									parse_utils.c)
 
-EXEC		= $(addprefix exec/, exec_builtin.c \
+EXEC		= $(addprefix exec/, launcher.c \
+								exec_builtin.c \
 								exec_command.c \
 								exec_heredoc.c)
 

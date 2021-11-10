@@ -5,6 +5,8 @@
 
 volatile int myvar = 0;
 
+extern volatile int myvar;
+
 int main() {
 	int a =0;
 	

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/09 19:29:02 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/10 02:29:33 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int is_builtin(char *cmd)
 	return (0);
 }
 
-int	exec_builtin(t_command *exe, t_var **env)
+int	exec_builtin(t_command **exe, t_var **env)
 {
-	char **argv = exe->argv;
+	char **argv = exe[0]->argv;
 
 	if (!ft_strcmp(argv[0], "cd"))
 		return (ft_cd(argv, *env));
@@ -42,4 +42,9 @@ int	exec_builtin(t_command *exe, t_var **env)
 	if (!ft_strcmp(argv[0], "exit"))
 		return (ft_exit(0, NULL, NULL, exe));
 	return (-2);
+}
+
+int	launch_builtin(t_command **command)
+{
+	return (exec_builtin(command, &g.env));
 }

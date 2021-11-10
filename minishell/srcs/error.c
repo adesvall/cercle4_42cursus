@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 20:16:53 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/09 17:38:00 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/10 02:19:44 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,10 @@ void	print_error(char *str, char *str2)
 	}
 }
 
-int	ft_exit(int code, char *s, char *s2, t_command *exe)
+int	ft_exit(int code, char *s, char *s2, t_command **exe)
 {
 	print_error(s, s2);
 	if (exe)
-	{
-		free(exe->io.infile);
-		free(exe->io.outfile);
-		ft_abort(exe->argv);
-	}
+		free_commands(exe);
 	exit(code);
 }
