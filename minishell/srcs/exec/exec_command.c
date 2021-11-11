@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 18:00:52 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/11 13:59:03 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,8 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 	// if (!is_builtin(exe->argv[0]))
 	// {
 	path = parse_path(get_var(g.env, "PATH"), exe->argv[0]);
-	if (!path)	{
-		free(path);
-		exit(0);
-		ft_exit(0, exe->argv[0], "command not found", commands);
-	}
+	if (!path)
+		ft_exit(errno, exe->argv[0], "command not found", commands);
 	// }
 	// else
 	// 	path = exe->argv[0];

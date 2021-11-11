@@ -9,5 +9,6 @@ int main() {
 
 	text = malloc(20);
 	int pid = fork();
-	free(text);
- }
+	if (pid != 0)
+		free(text);
+}

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 02:09:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 17:47:36 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/11 13:57:45 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	free_commands(t_command **command)
 
 void	free_command(t_command *command)
 {
-	disp_tab(command->argv);
 	free(command->io.infile);
 	free(command->io.outfile);
 	ft_abort(command->argv);
@@ -78,5 +77,6 @@ int launch_processes(t_command **commands, int exit_status)
 		exit(1);
 	}
 	wait(&exit_status);
+	printf("exit_status : %d\n", exit_status);
 	return (exit_status);
 }

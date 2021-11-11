@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 16:37:06 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/11 14:10:45 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "libft/libft.h"
 # include "srcs/builtins/builtins.h"
 
-# define PROMPT "mini\033[34mshell\033[00m : "
+# define PROMPT "\033[33mmini\033[34mshell\033[00m : "
 
 typedef struct s_redir
 {

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 16:34:52 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/11 14:09:05 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char **construct_argv(char *line)
 			i++;
 	}
 	tab = ft_split(line, '\n');
-	
+	free(line);
 	i = 0;
 	while (tab[i])
 	{
@@ -121,7 +121,7 @@ t_command	**parse_processes(char **commands)
 		exe[i]->argv = construct_argv(commands[i]);
 		disp_tab(exe[i]->argv);
 
-		exe[i]->env = NULL;
+		exe[i]->env = NULL; // A reflechir
 		i++;
 	}
 	exe[i] = NULL;
