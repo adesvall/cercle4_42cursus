@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/11 14:26:48 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/12 14:26:07 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void handle_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
-		write(1, "\nSIGINT\n", 8);
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		if (!g.is_running)
@@ -27,7 +27,7 @@ void handle_sig(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
-		write(1, "\b\bSIGQUIT  \b\b", 6);
+		write(1, "\b\b  \b\b", 6);
 	}
 }
 
@@ -81,4 +81,5 @@ int main(int ac, char **av, char **env)
 		line = readline(PROMPT);
 	}
 	write(1, "exit\n", 5);
+	clear_env(&g.env);
 }

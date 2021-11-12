@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/11 13:59:03 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/12 13:52:55 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 		else
 			fdin = heredoc(exe->io.infile);
 		if (fdin == -1)
-			ft_exit(errno, exe->io.infile, "can't open file", commands);
+			ft_exit(1, exe->io.infile, "can't open file", commands);
 	}
 	if (exe->io.outfile)
 	{
@@ -76,13 +76,13 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 		else
 			fdout = open(exe->io.outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fdout == -1)
-			ft_exit(errno, exe->io.outfile, "can't open file", commands);
+			ft_exit(1, exe->io.outfile, "can't open file", commands);
 	}
 	// if (!is_builtin(exe->argv[0]))
 	// {
 	path = parse_path(get_var(g.env, "PATH"), exe->argv[0]);
 	if (!path)
-		ft_exit(errno, exe->argv[0], "command not found", commands);
+		ft_exit(127, exe->argv[0], "command not found", commands);
 	// }
 	// else
 	// 	path = exe->argv[0];
@@ -101,6 +101,6 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 	// 	exit(exec_builtin(exe, &g.env));
 	exe->env = unload_env(g.env);
 	if (execve(path, exe->argv, exe->env) == -1)
-		ft_exit(errno, exe->argv[0], "can't execute command", commands);
+		ft_exit(126, exe->argv[0], "can't execute command", commands);
 	return (0);
 }

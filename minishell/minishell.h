@@ -6,13 +6,14 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/11 14:10:45 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/12 14:20:44 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define _XOPEN_SOURCE 700
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>

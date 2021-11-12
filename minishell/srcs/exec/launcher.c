@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 02:09:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/11 13:57:45 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/12 13:47:39 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int launch_processes(t_command **commands, int exit_status)
 		printf("olala\n");
 		exit(1);
 	}
-	wait(&exit_status);
+	waitpid(pid, &exit_status, 0);
 	printf("exit_status : %d\n", exit_status);
 	return (exit_status);
 }
