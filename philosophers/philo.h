@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:12:23 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/22 14:21:57 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:43:49 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,15 @@ typedef struct s_glob
 	uint64_t		start;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write;
-	pthread_mutex_t	end;
-	int is_running;
+	int				is_running;
+	pthread_mutex_t	m_is_running;
 }						t_glob;
 
 int			init(t_glob *glob, int argc, char **argv);
 void		*philo_life(void *vphilo);
 void		display(t_glob *glob, int id, char *str);
+int			sim_is_running(t_glob *glob);
+void		stop_sim(t_glob *glob);
 
 int			ft_strlen(char *str);
 int			ft_atoi(const char *str);

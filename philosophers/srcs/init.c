@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:17:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/22 01:24:14 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/20 15:33:32 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	init_mutexes(t_glob *glob)
 	int	i;
 
 	pthread_mutex_init(&glob->write, NULL);
-	pthread_mutex_init(&glob->end, NULL);
-	pthread_mutex_lock(&glob->end);
+	pthread_mutex_init(&glob->m_is_running, NULL);
 	glob->forks = malloc(glob->n_philo * sizeof(pthread_mutex_t));
 	if (!glob->forks)
 		return (-1);

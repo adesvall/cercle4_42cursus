@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:39:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/03 17:20:37 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/20 17:28:52 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,15 @@ void	take_forks(t_philo *philo)
 	forks = philo->glob->forks;
 	pthread_mutex_lock(&forks[philo->id]);
 	display(philo->glob, philo->id, M_FORK);
-	pthread_mutex_lock(&forks[(philo->id + 1) % philo->glob->n_philo]);
-	display(philo->glob, philo->id, M_FORK);
+	if (philo->glob->n_philo != 1)
+	{
+		pthread_mutex_lock(&forks[(philo->id + 1) % philo->glob->n_philo]);
+		display(philo->glob, philo->id, M_FORK);
+	}
+	else
+	{
+		while (sim_is_running(philo->glob)) { usleep(100); }
+	}
 }
 
 void	eat(t_philo *philo)
@@ -29,8 +36,8 @@ void	eat(t_philo *philo)
 	philo->last_meal = get_time();
 	display(philo->glob, philo->id, M_EAT);
 	usleep(philo->glob->time_eat * 1000);
-	pthread_mutex_unlock(&philo->mutex);
 	philo->meal_count++;
+	pthread_mutex_unlock(&philo->mutex);
 }
 
 void	drop_forks_and_sleep(t_philo *philo)
@@ -49,15 +56,14 @@ void	*philo_monitor(void *vphilo)
 	t_philo		*philo;
 
 	philo = (t_philo *)vphilo;
-	while (philo->glob->is_running)
+	while (sim_is_running(philo->glob))
 	{
 		pthread_mutex_lock(&philo->mutex);
 		if (get_time() > philo->last_meal + philo->glob->time_die)
 		{
 			display(philo->glob, philo->id, M_DIED);
-			pthread_mutex_lock(&philo->glob->write);
-			philo->glob->is_running = 0;
-			pthread_mutex_unlock(&philo->glob->end);
+			stop_sim(philo->glob);
+			pthread_mutex_unlock(&philo->mutex);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->mutex);
@@ -76,13 +82,15 @@ void	*philo_life(void *vphilo)
 		return ((void *)1);
 	//pthread_detach(tid);
 	philo->last_meal = philo->glob->start;
-	while (philo->glob->is_running)
+	while (sim_is_running(philo->glob))
 	{
 		take_forks(philo);
 		eat(philo);
 		drop_forks_and_sleep(philo);
 		display(philo->glob, philo->id, M_THINK);
 	}
+	printf("%d loop OK\n", philo->id);
 	pthread_join(tid, NULL);
+	printf("%d monitor OK\n", philo->id);
 	return (NULL);
 }
