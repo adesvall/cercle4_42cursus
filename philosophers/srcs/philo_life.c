@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:39:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/20 17:28:52 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/21 14:57:59 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ void	take_forks(t_philo *philo)
 		display(philo->glob, philo->id, M_FORK);
 	}
 	else
-	{
-		while (sim_is_running(philo->glob)) { usleep(100); }
-	}
+		while (sim_is_running(philo->glob))
+			usleep(100);
 }
 
 void	eat(t_philo *philo)
@@ -80,7 +79,6 @@ void	*philo_life(void *vphilo)
 	philo = (t_philo *)vphilo;
 	if (pthread_create(&tid, NULL, philo_monitor, vphilo))
 		return ((void *)1);
-	//pthread_detach(tid);
 	philo->last_meal = philo->glob->start;
 	while (sim_is_running(philo->glob))
 	{
@@ -89,8 +87,6 @@ void	*philo_life(void *vphilo)
 		drop_forks_and_sleep(philo);
 		display(philo->glob, philo->id, M_THINK);
 	}
-	printf("%d loop OK\n", philo->id);
 	pthread_join(tid, NULL);
-	printf("%d monitor OK\n", philo->id);
 	return (NULL);
 }

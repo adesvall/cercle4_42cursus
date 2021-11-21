@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:17:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/20 15:33:32 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:01:59 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,32 @@ int	init(t_glob *glob, int argc, char **argv)
 	glob->is_running = 1;
 	if (argc == 6)
 		glob->n_meals = ft_atoi(argv[5]);
-	// GERER LES ERREURS D'ENTREE
 	glob->philos = malloc(glob->n_philo * sizeof(t_philo));
 	if (!glob->philos)
 		return (-1);
 	init_philos(glob);
 	return (init_mutexes(glob));
+}
+
+int	clean_glob(t_glob *glob)
+{
+	int	i;
+
+	if (glob->forks)
+	{
+		i = 0;
+		while (i < glob->n_philo)
+			pthread_mutex_destroy(&glob->forks[i++]);
+		free(glob->forks);
+	}
+	if (glob->philos)
+	{
+		i = 0;
+		while (i < glob->n_philo)
+			pthread_mutex_destroy(&glob->philos[i++].mutex);
+		free(glob->philos);
+	}
+	pthread_mutex_destroy(&glob->write);
+	pthread_mutex_destroy(&glob->m_is_running);
+	return (1);
 }
