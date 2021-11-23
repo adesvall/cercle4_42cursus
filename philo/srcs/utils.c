@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:32:47 by adesvall          #+#    #+#             */
-/*   Updated: 2021/09/22 00:02:51 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:15:13 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-static	int	ft_isin(char c, const char *str)
+int	ft_isin(char c, const char *str)
 {
 	int	i;
 
@@ -38,35 +38,33 @@ static	int	ft_isin(char c, const char *str)
 	if (!str)
 		return (0);
 	while (str[i])
-		if (str[i++] == c)
+	{
+		if (str[i] == c)
 			return (1);
+		i++;
+	}
 	return (0);
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi_with_overflow_check(const char *str, int *n)
 {
 	int	res;
 	int	i;
-	int	sign;
 
 	i = 0;
 	res = 0;
-	sign = -1;
-	while (ft_isin(str[i], " \t\n\v\f\r"))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	while (str[i])
 	{
-		if (str[i] == '-')
-			sign = 1;
-		i++;
-	}
-	while (ft_isin(str[i], "0123456789"))
-	{
+		if (res > 214748364)
+			return (0);
 		res *= 10;
-		res -= str[i] - '0';
+		if (res > (unsigned int)(2147483647 - (str[i] - '0')))
+			return (0);
+		res += str[i] - '0';
 		i++;
 	}
-	return (res * sign);
+	*n = res;
+	return (1);
 }
 
 void	ft_putnbr_fd(int n, int fd)

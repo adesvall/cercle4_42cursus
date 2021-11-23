@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:39:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/20 17:28:52 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/23 18:00:04 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,16 @@
 
 void	take_forks(t_philo *philo)
 {
-	pthread_mutex_t	*forks;
-
-	forks = philo->glob->forks;
-	pthread_mutex_lock(&forks[philo->id]);
+	pthread_mutex_lock(philo->fork1);
 	display(philo->glob, philo->id, M_FORK);
 	if (philo->glob->n_philo != 1)
 	{
-		pthread_mutex_lock(&forks[(philo->id + 1) % philo->glob->n_philo]);
+		pthread_mutex_lock(philo->fork2);
 		display(philo->glob, philo->id, M_FORK);
 	}
 	else
-	{
-		while (sim_is_running(philo->glob)) { usleep(100); }
-	}
+		while (sim_is_running(philo->glob))
+			usleep(100);
 }
 
 void	eat(t_philo *philo)
@@ -78,10 +74,9 @@ void	*philo_life(void *vphilo)
 	pthread_t	tid;
 
 	philo = (t_philo *)vphilo;
+	philo->last_meal = philo->glob->start;
 	if (pthread_create(&tid, NULL, philo_monitor, vphilo))
 		return ((void *)1);
-	//pthread_detach(tid);
-	philo->last_meal = philo->glob->start;
 	while (sim_is_running(philo->glob))
 	{
 		take_forks(philo);
@@ -89,8 +84,6 @@ void	*philo_life(void *vphilo)
 		drop_forks_and_sleep(philo);
 		display(philo->glob, philo->id, M_THINK);
 	}
-	printf("%d loop OK\n", philo->id);
 	pthread_join(tid, NULL);
-	printf("%d monitor OK\n", philo->id);
 	return (NULL);
 }

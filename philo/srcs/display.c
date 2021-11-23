@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 22:10:13 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/20 17:48:14 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:10:00 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,23 @@ int	sim_is_running(t_glob *glob)
 	result = glob->is_running;
 	pthread_mutex_unlock(&glob->m_is_running);
 	return (result);
+}
+
+int	check_eatcount(t_philo *philos, int len, int meals)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		pthread_mutex_lock(&philos[i].mutex);
+		if (philos[i].meal_count < meals)
+		{
+			pthread_mutex_unlock(&philos[i].mutex);
+			return (0);
+		}
+		pthread_mutex_unlock(&philos[i].mutex);
+		i++;
+	}
+	return (1);
 }
