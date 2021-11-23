@@ -6,7 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:12:23 by adesvall          #+#    #+#             */
+<<<<<<< HEAD:philo/philo.h
 /*   Updated: 2021/11/23 18:15:31 by adesvall         ###   ########.fr       */
+=======
+/*   Updated: 2021/11/21 15:10:33 by adesvall         ###   ########.fr       */
+>>>>>>> c8511393e5df2d08d2c7fed33e289bddabd94717:philosophers/philo.h
 /*                                                                            */
 /* ************************************************************************** */
 
