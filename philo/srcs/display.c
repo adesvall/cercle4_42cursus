@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 22:10:13 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/21 15:10:00 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/23 19:35:37 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	display(t_glob *glob, int id, char *str)
 {
 	uint64_t	time;
 
-	time = get_time() - glob->start;
 	pthread_mutex_lock(&glob->write);
+	time = get_time() - glob->start;
 	if (sim_is_running(glob))
 	{
 		ft_putnbr_fd(time, 1);

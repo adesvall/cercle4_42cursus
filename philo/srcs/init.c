@@ -6,11 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:17:08 by adesvall          #+#    #+#             */
-<<<<<<< HEAD:philo/srcs/init.c
-/*   Updated: 2021/11/23 18:28:29 by adesvall         ###   ########.fr       */
-=======
-/*   Updated: 2021/11/21 15:01:59 by adesvall         ###   ########.fr       */
->>>>>>> c8511393e5df2d08d2c7fed33e289bddabd94717:philosophers/srcs/init.c
+/*   Updated: 2021/11/23 19:31:44 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +83,15 @@ int	init(t_glob *glob, int argc, char **argv)
 	glob->n_meals = -1;
 	if (wrong_arg(argc, argv) ||
 	!ft_atoi_with_overflow_check(argv[1], &glob->n_philo) ||
-	!ft_atoi_with_overflow_check(argv[2], &glob->time_die) ||
-	!ft_atoi_with_overflow_check(argv[3], &glob->time_eat) ||
-	!ft_atoi_with_overflow_check(argv[4], &glob->time_sleep) ||
+	!ft_atoi_with_overflow_check(argv[2], (int*)&glob->time_die) ||
+	!ft_atoi_with_overflow_check(argv[3], (int*)&glob->time_eat) ||
+	!ft_atoi_with_overflow_check(argv[4], (int*)&glob->time_sleep) ||
 	(argc == 6 && !ft_atoi_with_overflow_check(argv[5], &glob->n_meals)))
 	{
 		printf("Bad arguments. Must be positive integers.\n");
 		return (-1);
 	}
 	glob->is_running = 1;
-<<<<<<< HEAD:philo/srcs/init.c
-=======
-	if (argc == 6)
-		glob->n_meals = ft_atoi(argv[5]);
->>>>>>> c8511393e5df2d08d2c7fed33e289bddabd94717:philosophers/srcs/init.c
 	glob->philos = malloc(glob->n_philo * sizeof(t_philo));
 	if (!glob->philos)
 		return (-1);

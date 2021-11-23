@@ -6,11 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:11:00 by adesvall          #+#    #+#             */
-<<<<<<< HEAD:philo/srcs/main.c
-/*   Updated: 2021/11/23 18:27:45 by adesvall         ###   ########.fr       */
-=======
-/*   Updated: 2021/11/21 15:09:37 by adesvall         ###   ########.fr       */
->>>>>>> c8511393e5df2d08d2c7fed33e289bddabd94717:philosophers/srcs/main.c
+/*   Updated: 2021/11/23 19:29:58 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +74,7 @@ int	start_sim(t_glob *glob)
 	if (!tid)
 		return (-1);
 	tid[0] = 0;
-<<<<<<< HEAD:philo/srcs/main.c
 	if (glob->n_meals >= 0)
-=======
-	if (glob->n_meals > 0)
->>>>>>> c8511393e5df2d08d2c7fed33e289bddabd94717:philosophers/srcs/main.c
 		if (pthread_create(&tid[0], NULL, global_monitor, (void *)glob))
 			return (-1);
 	glob->start = get_time();

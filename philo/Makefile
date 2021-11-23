@@ -4,7 +4,7 @@ SRCS		= srcs/main.c srcs/init.c srcs/utils.c srcs/philo_life.c srcs/display.c
 
 OBJS		= ${SRCS:.c=.o}
 
-CFLAGS		= -Wall -Wextra -Werror -I. -fsanitize=thread -g3
+CFLAGS		= -Wall -Wextra -Werror -I.
 
 all:		${NAME}
 

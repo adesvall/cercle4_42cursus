@@ -6,11 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:39:20 by adesvall          #+#    #+#             */
-<<<<<<< HEAD:philo/srcs/philo_life.c
-/*   Updated: 2021/11/23 18:00:04 by adesvall         ###   ########.fr       */
-=======
-/*   Updated: 2021/11/21 14:57:59 by adesvall         ###   ########.fr       */
->>>>>>> c8511393e5df2d08d2c7fed33e289bddabd94717:philosophers/srcs/philo_life.c
+/*   Updated: 2021/11/23 19:30:03 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +77,6 @@ void	*philo_life(void *vphilo)
 	philo->last_meal = philo->glob->start;
 	if (pthread_create(&tid, NULL, philo_monitor, vphilo))
 		return ((void *)1);
-<<<<<<< HEAD:philo/srcs/philo_life.c
-=======
-	philo->last_meal = philo->glob->start;
->>>>>>> c8511393e5df2d08d2c7fed33e289bddabd94717:philosophers/srcs/philo_life.c
 	while (sim_is_running(philo->glob))
 	{
 		take_forks(philo);
