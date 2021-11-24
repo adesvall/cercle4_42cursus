@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/11 14:09:05 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/24 00:05:02 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ t_command	**parse_processes(char **commands)
 		exe[i] = malloc(sizeof(t_command));
 		exe[i]->io = parse_redir(&(commands[i]));
 
-		printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
-		printf("  Command : %s\n", commands[i]);
+		// printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
+		// printf("  Command : %s\n", commands[i]);
 		// printf("  Infile  : %s, fd is %d\n", exe[i]->io.infile, fdin);
 		// printf("  Outfile : %s, fd is %d\n", exe[i]->io.outfile, fdout);
 		
 		exe[i]->argv = construct_argv(commands[i]);
-		disp_tab(exe[i]->argv);
+		// disp_tab(exe[i]->argv);
 
 		exe[i]->env = NULL; // A reflechir
 		i++;

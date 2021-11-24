@@ -26,7 +26,7 @@ SRCS		= $(addprefix srcs/, $(PURESRCS))
 
 OBJS		= $(addprefix objs/, $(PURESRCS:.c=.o))
 
-CFLAGS		= -Wall -Wextra -Werror -I.
+CFLAGS		= -Wall -Wextra -Werror -I. -fsanitize=address
 
 all:		${NAME}
 

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 16:42:17 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/24 00:58:46 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,37 @@ int	exec_builtin(t_command **exe, t_var **env)
 	return (-2);
 }
 
-int	launch_builtin(t_command **command)
+int	launch_builtin(t_command **commands, int tempin, int tempout)
 {
-	return (exec_builtin(command, &g.env));
+	int oldout;
+	int oldin;
+	int ret;
+	t_command *exe;
+	
+	exe = commands[0];
+	prepare_redir(exe->io, &tempin, &tempout, commands);
+	if (tempin != STDIN_FILENO)
+	{
+		oldin = dup(STDIN_FILENO);
+		dup2(tempin, STDIN_FILENO);
+	}
+	if (tempout != STDOUT_FILENO)
+	{
+		oldout = dup(STDOUT_FILENO);
+		dup2(tempout, STDOUT_FILENO);
+	}
+	ret = exec_builtin(commands, &g.env);
+	if (tempin != STDIN_FILENO)
+	{
+		close(tempin);
+		dup2(oldin, STDIN_FILENO);
+		close(oldin);
+	}
+	if (tempout != STDOUT_FILENO)
+	{
+		close(tempout);
+		dup2(oldout, STDOUT_FILENO);
+		close(oldout);
+	}
+	return (ret);
 }

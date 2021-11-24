@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/12 14:20:44 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/24 01:00:55 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ extern t_data g;
 int			parse_line(char *line, int exit_status);
 t_command	**parse_processes(char **command);
 int 		launch_processes(t_command **commands, int exit_status);
+void		prepare_redir(t_redir io, int *fdin, int *fdout, t_command **commands);
 int			exec_command(t_command **exe, int i, int fdin, int fdout);
 void		free_command(t_command *command);
 void		free_commands(t_command **commands);
 int			is_builtin(char *cmd);
 int			is_fork_builtin(char *cmd);
-int			launch_builtin(t_command **command);
+int			launch_builtin(t_command **command, int fdin, int fdout);
 int			heredoc(char *delim);
 int			ft_exit(int code, char *str, char *str2, t_command **exe);
 void		print_error(char *str, char *str2);

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/12 13:52:55 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/24 00:30:52 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,38 @@ char	*parse_path(char *path, char *cmd)
 	return (find_access(dir, tmp));
 }
 
+void	prepare_redir(t_redir io, int *fdin, int *fdout, t_command **commands)
+{
+	if (io.infile)
+	{
+		if (!io.heredoc)
+			*fdin = open(io.infile, O_RDONLY);
+		else
+			*fdin = heredoc(io.infile);
+		if (*fdin == -1)
+			ft_exit(1, io.infile, "can't open file", commands);
+	}
+	if (io.outfile)
+	{
+		if (!io.outcat)
+			*fdout = open(io.outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else
+			*fdout = open(io.outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		if (*fdout == -1)
+			ft_exit(1, io.outfile, "can't open file", commands);
+	}
+}
+
 int	exec_command(t_command **commands, int i, int fdin, int fdout)
 {
 	char *path;
 	t_command *exe;
 
 	exe = commands[i];
-	if (exe->io.infile)
-	{
-		if (!exe->io.heredoc)
-			fdin = open(exe->io.infile, O_RDONLY);
-		else
-			fdin = heredoc(exe->io.infile);
-		if (fdin == -1)
-			ft_exit(1, exe->io.infile, "can't open file", commands);
-	}
-	if (exe->io.outfile)
-	{
-		if (!exe->io.outcat)
-			fdout = open(exe->io.outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else
-			fdout = open(exe->io.outfile, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fdout == -1)
-			ft_exit(1, exe->io.outfile, "can't open file", commands);
-	}
-	// if (!is_builtin(exe->argv[0]))
-	// {
+	prepare_redir(exe->io, &fdin, &fdout, commands);
 	path = parse_path(get_var(g.env, "PATH"), exe->argv[0]);
 	if (!path)
 		ft_exit(127, exe->argv[0], "command not found", commands);
-	// }
-	// else
-	// 	path = exe->argv[0];
 	if (fdin != STDIN_FILENO)
 	{
 		dup2(fdin, STDIN_FILENO);
