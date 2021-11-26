@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:12:23 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/23 18:15:31 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:13:22 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philo
 	uint64_t		last_meal;
 	pthread_mutex_t	mutex;
 	t_glob			*glob;
-	pthread_mutex_t *fork1;
+	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
 }						t_philo;
 

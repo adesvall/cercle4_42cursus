@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:17:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/23 19:31:44 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:24:08 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int	init(t_glob *glob, int argc, char **argv)
 {
 	memset(glob, 0, sizeof(t_glob));
 	glob->n_meals = -1;
-	if (wrong_arg(argc, argv) ||
-	!ft_atoi_with_overflow_check(argv[1], &glob->n_philo) ||
-	!ft_atoi_with_overflow_check(argv[2], (int*)&glob->time_die) ||
-	!ft_atoi_with_overflow_check(argv[3], (int*)&glob->time_eat) ||
-	!ft_atoi_with_overflow_check(argv[4], (int*)&glob->time_sleep) ||
-	(argc == 6 && !ft_atoi_with_overflow_check(argv[5], &glob->n_meals)))
+	if (wrong_arg(argc, argv)
+		|| !ft_atoi_with_overflow_check(argv[1], &glob->n_philo)
+		|| !ft_atoi_with_overflow_check(argv[2], (int*)&glob->time_die)
+		|| !ft_atoi_with_overflow_check(argv[3], (int*)&glob->time_eat)
+		|| !ft_atoi_with_overflow_check(argv[4], (int*)&glob->time_sleep)
+		|| (argc == 6 && !ft_atoi_with_overflow_check(argv[5], &glob->n_meals)))
 	{
-		printf("Bad arguments. Must be positive integers.\n");
+		write(2, "Error. Bad arguments. Must be positive integers.\n", 49);
 		return (-1);
 	}
 	glob->is_running = 1;

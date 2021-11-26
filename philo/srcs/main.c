@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:11:00 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/23 19:29:58 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/11/26 14:35:47 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,14 @@ void	join_threads(t_glob *glob, pthread_t *tid)
 int	start_threads(t_glob *glob, pthread_t *tid)
 {
 	int		i;
-	int		j;
 
-	j = 0;
-	while (j < 2)
+	i = 0;
+	while (i < glob->n_philo)
 	{
-		i = 0;
-		while (2 * i + j < glob->n_philo)
-		{
-			if (pthread_create(&tid[1 + 2 * i + j], NULL, philo_life, \
-									(void *)&glob->philos[2 * i + j]))
-				return (-1);
-			i++;
-		}
-		usleep(glob->time_eat * 500);
-		j++;
+		if (pthread_create(&tid[1 + i], NULL, philo_life, \
+								(void *)&glob->philos[i]))
+			return (-1);
+		i++;
 	}
 	return (0);
 }
@@ -90,10 +83,15 @@ int	main(int argc, char **argv)
 	t_glob	glob;
 
 	if (argc != 6 && argc != 5)
-		return (0);
+	{
+		write(2, "Usage : ./philo nb_philo time_die time_eat", 42);
+		write(2, " time_sleep ( nb_meals )\n", 25);
+		return (1);
+	}
 	if (init(&glob, argc, argv))
 		return (clean_glob(&glob));
 	if (start_sim(&glob))
 		return (clean_glob(&glob));
 	clean_glob(&glob);
+	return (0);
 }
