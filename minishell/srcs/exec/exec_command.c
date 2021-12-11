@@ -78,8 +78,8 @@ void	prepare_redir(t_redir io, int *fdin, int *fdout, t_command **commands)
 
 int	exec_command(t_command **commands, int i, int fdin, int fdout)
 {
-	char *path;
-	t_command *exe;
+	char		*path;
+	t_command	*exe;
 
 	exe = commands[i];
 	prepare_redir(exe->io, &fdin, &fdout, commands);
@@ -96,9 +96,11 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 		dup2(fdout, STDOUT_FILENO);
 		close(fdout);
 	}
-	// add_var(&g.env, "_", path);
-	// if (is_builtin(exe->argv[0]))
-	// 	exit(exec_builtin(exe, &g.env));
+	/*
+	add_var(&g.env, "_", path);
+	if (is_builtin(exe->argv[0]))
+	exit(exec_builtin(exe, &g.env));
+	*/
 	exe->env = unload_env(g.env);
 	if (execve(path, exe->argv, exe->env) == -1)
 		ft_exit(126, exe->argv[0], "can't execute command", commands);

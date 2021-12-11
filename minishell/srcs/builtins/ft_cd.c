@@ -12,10 +12,10 @@
 
 #include "minishell.h" 
 
-int proceed_cd(char **argv, t_var *env)
+int	proceed_cd(char **argv, t_var *env)
 {
-	char *from;
-	char *to;
+	char	*from;
+	char	*to;
 
 	from = getcwd(NULL, 0);
 	if (chdir(argv[1]))
@@ -36,12 +36,12 @@ int proceed_cd(char **argv, t_var *env)
 
 int	ft_cd(char **argv, t_var *env)
 {
-	char *home;
+	char	*home;
 
 	if (!argv[1])
 	{
 		home = get_var(env, "HOME");
-		return (ft_cd((char*[3]){"cd", home, NULL}, env));
+		return (ft_cd((char *[3]){"cd", home, NULL}, env));
 	}
 	if (argv[1] && argv[2])
 	{

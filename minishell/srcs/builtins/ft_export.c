@@ -7,7 +7,7 @@ void	sort_tab(t_var	**tab)
 	t_var	*tmp;
 	int		imin;
 
-	i=0;
+	i = 0;
 	while (tab[i])
 	{
 		imin = i;
@@ -28,10 +28,10 @@ void	sort_tab(t_var	**tab)
 t_var	**get_tab(t_var *env)
 {
 	t_var	**tab;
-	int	i;
+	int		i;
 	
 	i = 0;
-	tab = malloc((env_size(env)+1) * sizeof(char*));
+	tab = malloc((env_size(env) + 1) * sizeof(char*));
 	while (env)
 	{
 		tab[i] = env;
@@ -43,10 +43,10 @@ t_var	**get_tab(t_var *env)
 	return (tab);
 }
 
-int export_sort(t_var *env)
+int	export_sort(t_var *env)
 {
 	t_var	**tab;
-	int i;
+	int		i;
 
 	tab = get_tab(env);
 	i = 0;
@@ -56,17 +56,17 @@ int export_sort(t_var *env)
 		i++;
 	}
 	free(tab);
-    return (0);
+	return (0);
 }
 
-int ft_export(char **argv, t_var **env)
+int	ft_export(char **argv, t_var **env)
 {
 	int		i;
 	char	*egal;
 
 	i = 1;
 	if (!argv[1])
-		return  (export_sort(*env));
+		return (export_sort(*env));
 	while (argv[i])
 	{
 		egal = ft_strchr(argv[i], '=');
@@ -82,5 +82,5 @@ int ft_export(char **argv, t_var **env)
 		*egal = '=';
 		i++;
 	}
-    return (0);
+	return (0);
 }

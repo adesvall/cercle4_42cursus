@@ -12,9 +12,9 @@
 
 #include "../minishell.h"
 
-t_data g = {.exit_status = 0, .is_running = 0, .env = NULL};
+t_data	g = {.exit_status = 0, .is_running = 0, .env = NULL};
 
-void handle_sig(int sig)
+void	handle_sig(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -33,7 +33,7 @@ void handle_sig(int sig)
 
 int	sig_init(void)
 {
-	struct sigaction act;
+	struct sigaction	act;
 
 	act.sa_handler = &handle_sig;
 	if (sigaction(SIGINT, &act, NULL))
@@ -57,9 +57,9 @@ int	is_empty(char *line)
 	return (1);
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
-	char *line;
+	char	*line;
 
 	(void)ac;
 	(void)av;
@@ -69,7 +69,7 @@ int main(int ac, char **av, char **env)
 	line = readline(PROMPT);
 	while (line)
 	{
-		// printf("%s\n", line);
+		/* printf("%s\n", line); */
 		if (*line && !is_empty(line))
 		{
 			add_history(line);

@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-int extend_var(char *str, int i, t_list **lst)
+int	extend_var(char *str, int i, t_list **lst)
 {
-	int start;
-	char 	*var_name;
+	int		start;
+	char	*var_name;
 	char	*var_value;
 
 	start = i;
@@ -39,7 +39,7 @@ int extend_var(char *str, int i, t_list **lst)
 
 int	extend_quotes(char *str, int i, t_list **lst, int and_vars)
 {
-	int 	start;
+	int		start;
 
 	i++;
 	while (str[i] && str[i] != '"')
@@ -59,7 +59,7 @@ int	extend_quotes(char *str, int i, t_list **lst, int and_vars)
 * et remplace le nom des variables d'environnement par leurs valeurs
 */
 
-char *ft_extend(char *str, int extend_v, int extend_q)
+char	*ft_extend(char *str, int extend_v, int extend_q)
 {
 	t_list	*lst;
 	int		i;

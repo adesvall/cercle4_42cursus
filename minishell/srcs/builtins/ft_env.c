@@ -18,7 +18,7 @@ int	print(t_var *env)
 	return (0);
 }
 
-int		ft_env(char **args, t_var *env)
+int ft_env(char **args, t_var *env)
 {
 	if (!args[1])
 	{
@@ -28,8 +28,6 @@ int		ft_env(char **args, t_var *env)
 	printf("%s\n", "Error: too much arguments.");
 	return (1);
 }
-
-
 
 /*
 

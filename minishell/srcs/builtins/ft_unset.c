@@ -13,10 +13,10 @@ int	check_var_name(char *name)
 	return (1);
 }
 
-int		unset_one(char *str, t_var **env)
+int	unset_one(char *str, t_var **env)
 {
-	int	i;
-	t_var *tmp;
+	int		i;
+	t_var	*tmp;
 
 	i = 0;
 	while (*env)
@@ -34,9 +34,9 @@ int		unset_one(char *str, t_var **env)
 	return (0);
 }
 
-int		ft_unset(char **args, t_var **envp)
+int	ft_unset(char **args, t_var **envp)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	/// rajouter check caracteres unset Ulysse=7

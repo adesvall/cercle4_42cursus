@@ -12,7 +12,7 @@
 
 #include "builtins.h"
 
-char *get_var(t_var *env, char *name)
+char	*get_var(t_var *env, char *name)
 {
 	while (env)
 	{
