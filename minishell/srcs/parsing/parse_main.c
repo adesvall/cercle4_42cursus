@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-char **split_processes(char *line)
+char	**split_processes(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -29,11 +29,11 @@ char **split_processes(char *line)
 	return (ft_split(line, '\n'));
 }
 
-int parse_line(char *line, int exit_status)
+int	parse_line(char *line, int exit_status)
 {
-	char **commands;
+	char		**commands;
 	t_command	**processes;
-	int	ret;
+	int			ret;
 
 	commands = split_processes(line);
 	processes = parse_processes(commands);

@@ -39,15 +39,15 @@ void	add_var(t_var **env, char *name, char *value)
 
 t_var	*load_env(char **args)
 {
-	int i;
-	t_var *globals;
-	t_var *elem;
+	int		i;
+	t_var	*globals;
+	t_var	*elem;
 
 	i = 0;
 	while (args[i])
 		i++;
 	globals = NULL;
-	while(i--)
+	while (i--)
 	{
 		*ft_strchr(args[i], '=') = 0;
 		elem = malloc_var(args[i], ft_strchr(args[i], '\0') + 1);
@@ -63,13 +63,13 @@ t_var	*load_env(char **args)
 	return (globals);
 }
 
-char **unload_env(t_var *env)
+char	**unload_env(t_var *env)
 {
-	char **res;
-	char *tmp;
-	int i;
+	char	**res;
+	char	*tmp;
+	int		i;
 
-	res = malloc((env_size(env) + 1) * sizeof(char*));
+	res = malloc((env_size(env) + 1) * sizeof(char *));
 	i = 0;
 	while (env)
 	{
@@ -85,7 +85,7 @@ char **unload_env(t_var *env)
 
 int	env_size(t_var *env)
 {
-	int size;
+	int	size;
 
 	size = 0;
 	while (env)

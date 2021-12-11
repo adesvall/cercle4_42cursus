@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-int is_builtin(char *cmd)
+int	is_builtin(char *cmd)
 {
 	if (!cmd)
 		return (0);
 	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "env")
-		|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "pwd") 
+		|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "pwd")
 		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "exit"))
 		return (1);
 	return (0);
@@ -25,8 +25,9 @@ int is_builtin(char *cmd)
 
 int	exec_builtin(t_command **exe, t_var **env)
 {
-	char **argv = exe[0]->argv;
+	char	**argv;
 
+	argv = exe[0]->argv;
 	if (!ft_strcmp(argv[0], "cd"))
 		return (ft_cd(argv, *env));
 	if (!ft_strcmp(argv[0], "echo"))
@@ -46,11 +47,11 @@ int	exec_builtin(t_command **exe, t_var **env)
 
 int	launch_builtin(t_command **commands, int tempin, int tempout)
 {
-	int oldout;
-	int oldin;
-	int ret;
-	t_command *exe;
-	
+	int			oldout;
+	int			oldin;
+	int			ret;
+	t_command	*exe;
+
 	exe = commands[0];
 	prepare_redir(exe->io, &tempin, &tempout, commands);
 	if (tempin != STDIN_FILENO)

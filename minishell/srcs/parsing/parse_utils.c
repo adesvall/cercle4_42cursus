@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int    skip_quotes(char *line, int i)
+int	skip_quotes(char *line, int i)
 {
-	char c;
+	char	c;
 
 	c = line[i];
 	i++;
@@ -23,9 +23,9 @@ int    skip_quotes(char *line, int i)
 	return (i + 1);
 }
 
-int skip_redir(char *line, int i)
+int	skip_redir(char *line, int i)
 {
-	char c;
+	char	c;
 
 	c = line[i];
 	i++;
@@ -42,7 +42,7 @@ int skip_redir(char *line, int i)
 	return (i);
 }
 
-int skip_notredir(char *line, int i)
+int	skip_notredir(char *line, int i)
 {
 	while (line[i] && !ft_isin(line[i], "<>"))
 	{
@@ -53,11 +53,11 @@ int skip_notredir(char *line, int i)
 	return (i);
 }
 
-char *ft_lstjoin(t_list *lst)
+char	*ft_lstjoin(t_list *lst)
 {
-	t_list *act;
-	int size;
-	char *res;
+	t_list	*act;
+	int		size;
+	char	*res;
 
 	size = 0;
 	act = lst;

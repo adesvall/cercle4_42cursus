@@ -12,10 +12,10 @@
 
 #include "minishell.h"
 
-int heredoc(char *delim)
+int	heredoc(char *delim)
 {
-	int hd_pipe[2];
-	char *line;
+	int		hd_pipe[2];
+	char	*line;
 
 	if (pipe(hd_pipe) == -1)
 		ft_exit(errno, "Error", "pipe", NULL);

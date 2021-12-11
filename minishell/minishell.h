@@ -38,9 +38,9 @@ typedef struct s_redir
 
 typedef struct s_command
 {
-	t_redir io;
-	char **argv;
-	char **env;
+	t_redir	io;
+	char	**argv;
+	char	**env;
 }				t_command;
 
 typedef struct s_data
@@ -50,11 +50,11 @@ typedef struct s_data
 	t_var	*env;
 }				t_data;
 
-extern t_data g;
+extern t_data	g;
 
 int			parse_line(char *line, int exit_status);
 t_command	**parse_processes(char **command);
-int 		launch_processes(t_command **commands, int exit_status);
+int			launch_processes(t_command **commands, int exit_status);
 void		prepare_redir(t_redir io, int *fdin, int *fdout, t_command **commands);
 int			exec_command(t_command **exe, int i, int fdin, int fdout);
 void		free_command(t_command *command);
@@ -69,11 +69,9 @@ void		print_error(char *str, char *str2);
 char		*ft_lstjoin(t_list *lst);
 int			skip_quotes(char *line, int i);
 int			skip_redir(char *line, int i);
-int 		skip_notredir(char *line, int i);
-char 		*ft_extend(char *str, int extand_vars, int extand_quotes);
+int			skip_notredir(char *line, int i);
+char		*ft_extend(char *str, int extand_vars, int extand_quotes);
 
-
-
-int disp_tab(char *argv[]);
+int			disp_tab(char *argv[]);
 
 #endif

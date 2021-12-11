@@ -14,7 +14,7 @@
 
 void	free_commands(t_command **command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (command[i])
@@ -42,12 +42,12 @@ void	exec_fork(t_command **commands, int i, int *tube, int fdout)
 	exec_command(commands, i, tube[0], fdout);
 }
 
-int launch_processes(t_command **commands, int exit_status)
+int	launch_processes(t_command **commands, int exit_status)
 {
-	int i;
-	int pid;
+	int	i;
+	int	pid;
 	int	tube[2];
-	int fdout;
+	int	fdout;
 
 	i = 0;
 	while (commands[i])

@@ -43,4 +43,50 @@ pipeline.
 
 todo ::
 	signaux ya des truc pas clair pour ctrl+\ et valgrind
-	
+
+"""
+minishell : export woirg
+minishell : env | grep woi
+minishell : export woirg=WTF
+minishell : env | grep woi
+woirg=WTF
+minishell : echo $woinrg
+
+minishell : echo $woirg
+WTF
+minishell : unset woirg
+minishell : echo $woirg
+
+minishell : env | grep woi
+minishell : export | grep woi
+minishell : cd ..
+minishell : cd 
+.git/      minishell/ philo/     
+minishell : cd minishell/objs/
+minishell : ls
+builtins  error.o  exec  main.o  parsing
+minishell : cd ..
+minishell : exit
+==26476== 
+==26476== HEAP SUMMARY:
+==26476==     in use at exit: 205,637 bytes in 274 blocks
+==26476==   total heap usage: 1,586 allocs, 1,312 frees, 567,773 bytes allocated
+==26476== 
+==26476== LEAK SUMMARY:
+==26476==    definitely lost: 32 bytes in 1 blocks
+==26476==    indirectly lost: 0 bytes in 0 blocks
+==26476==      possibly lost: 0 bytes in 0 blocks
+==26476==    still reachable: 205,605 bytes in 273 blocks
+==26476==         suppressed: 0 bytes in 0 blocks
+==26476== Rerun with --leak-check=full to see details of leaked memory
+==26476== 
+==26476== Use --track-origins=yes to see where uninitialised values come from
+==26476== For lists of detected and suppressed errors, rerun with: -s
+
+// WITH EXPORT
+
+==26476== Syscall param wait4(pid) contains uninitialised byte(s)
+==26476==    at 0x4997DBA: wait4 (wait4.c:27)
+==26476==    by 0x402831: launch_processes (in /mnt/nfs/homes/adesvall/Documents/cercle4_42cursus/minishell/minishell)
+==26476==    by 0x401D0D: parse_line (in /mnt/nfs/homes/adesvall/Documents/cercle4_42cursus/minishell/minishell)
+==26476==    by 0x4014E8: main (in /mnt/nfs/homes/adesvall/Documents/cercle4_42cursus/minishell/minishell)

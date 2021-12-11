@@ -14,12 +14,13 @@
 
 t_redir	parse_redir(char **command)
 {
-	int i;
-	int start;
-	t_redir res = (t_redir){0, STDIN_FILENO, 0, STDOUT_FILENO};
-	t_list *lst;
-	char *comm;
+	int		i;
+	int		start;
+	t_redir	res;
+	t_list	*lst;
+	char	*comm;
 
+	res = (t_redir){0, STDIN_FILENO, 0, STDOUT_FILENO};
 	comm = *command;
 	i = 0;
 	lst = NULL;
@@ -59,10 +60,10 @@ t_redir	parse_redir(char **command)
 	return (res);
 }
 
-char **construct_argv(char *line)
+char	**construct_argv(char *line)
 {
-	int i;
-	char **tab;
+	int		i;
+	char	**tab;
 
 	line = ft_extend(line, 1, 0);
 	i = 0;
@@ -86,41 +87,44 @@ char **construct_argv(char *line)
 	return (tab);
 }
 
-int disp_tab(char *argv[])
+int	disp_tab(char *argv[])
 {
-	int i=0;
+	int	i;
+
+	i = 0;
 	printf("  ARGV :\n");
 	while (argv[i])
 	{
 		printf("    %s\n", argv[i]);
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 t_command	**parse_processes(char **commands)
 {
-	t_command **exe;
-	int i;
+	t_command	**exe;
+	int			i;
 
 	i = 0;
 	while (commands[i])
 		i++;
-	exe = malloc(sizeof(t_command*) * (i + 1));
+	exe = malloc(sizeof(t_command *) * (i + 1));
 	i = 0;
 	while (commands[i])
 	{
 		exe[i] = malloc(sizeof(t_command));
 		exe[i]->io = parse_redir(&(commands[i]));
-
-		// printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
+		//printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
+		/*
 		// printf("  Command : %s\n", commands[i]);
 		// printf("  Infile  : %s, fd is %d\n", exe[i]->io.infile, fdin);
 		// printf("  Outfile : %s, fd is %d\n", exe[i]->io.outfile, fdout);
-		
+		*/
 		exe[i]->argv = construct_argv(commands[i]);
-		// disp_tab(exe[i]->argv);
-
+		/*
+		disp_tab(exe[i]->argv);
+		*/
 		exe[i]->env = NULL; // A reflechir
 		i++;
 	}
