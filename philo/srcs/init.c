@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:17:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/26 14:24:08 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:44:41 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ int	clean_glob(t_glob *glob)
 		while (i < glob->n_philo)
 			pthread_mutex_destroy(&glob->philos[i++].mutex);
 		free(glob->philos);
+		pthread_mutex_destroy(&glob->write);
+		pthread_mutex_destroy(&glob->m_is_running);
 	}
-	pthread_mutex_destroy(&glob->write);
-	pthread_mutex_destroy(&glob->m_is_running);
 	return (1);
 }

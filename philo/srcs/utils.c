@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 19:32:47 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/23 19:32:03 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:34:37 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_atoi_with_overflow_check(const char *str, int *n)
 		i++;
 	}
 	*n = res;
-	return (1);
+	return (res > 0);
 }
 
 void	ft_putnbr_fd(int n, int fd)

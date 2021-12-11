@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 20:39:20 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/23 19:30:03 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/01 16:23:16 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ void	eat(t_philo *philo)
 
 void	drop_forks_and_sleep(t_philo *philo)
 {
-	pthread_mutex_t	*forks;
-
-	forks = philo->glob->forks;
-	pthread_mutex_unlock(&forks[philo->id]);
-	pthread_mutex_unlock(&forks[(philo->id + 1) % philo->glob->n_philo]);
+	pthread_mutex_unlock(philo->fork1);
+	if (philo->glob->n_philo != 1)
+		pthread_mutex_unlock(philo->fork2);
 	display(philo->glob, philo->id, M_SLEEP);
 	usleep(philo->glob->time_sleep * 1000);
 }
