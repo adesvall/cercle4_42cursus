@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/12 14:26:07 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/12 16:46:31 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+// Relink 3eme make
+#include "minishell.h"
 
 t_data	g = {.exit_status = 0, .is_running = 0, .env = NULL};
 
@@ -61,10 +62,10 @@ int	main(int ac, char **av, char **env)
 {
 	char	*line;
 
-	(void)ac;
-	(void)av;
 	if (sig_init())
 		return (0);
+	(void)ac;
+	(void)av;
 	g.env = load_env(env);
 	line = readline(PROMPT);
 	while (line)

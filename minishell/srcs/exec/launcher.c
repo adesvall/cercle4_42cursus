@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launcher.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 02:09:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/24 02:20:26 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/12 17:18:59 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,13 @@ int	launch_processes(t_command **commands, int exit_status)
 				exec_fork(commands, i, tube, fdout);
 		}
 		if (commands[i + 1])
-			close(fdout);
+			close(fdout); 
 		if (i > 0)
 			close(tube[0]);
 		fdout = tube[1];
 	}
-	waitpid(pid, &exit_status, 0);
-	// printf("exit_status : %d\n", exit_status);
+	waitpid(pid, &exit_status, 0); // attention gestion du sigquit lorsque cat est en attente + verifier qu'aucun  builtin ne met l'entree standard en attente + comprendre tout lol
+	// anything like expr $? + $?
+	// printf("exit_status : %d\n", exit_status);//You can repeat the same in bash and compare it.
 	return (exit_status);
 }

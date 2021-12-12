@@ -31,7 +31,6 @@ CFLAGS		= -Wall -Wextra -Werror -I.
 all:		${NAME}
 
 $(NAME):	${OBJS} libft/libft.a
-			echo $(OBJS)
 			clang ${CFLAGS} -lreadline -o ${NAME} ${OBJS} libft/libft.a
 
 objs/%.o:	srcs/%.c objs
