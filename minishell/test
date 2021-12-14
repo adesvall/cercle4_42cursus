@@ -1,0 +1,8 @@
+echo '$USER'
+echo "$USER"
+cat plouc
+echo "$?"
+cd lol
+echo "$?"
+unset PATH
+echo $?

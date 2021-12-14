@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/12 18:20:54 by upeyret          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:39:11 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_command	**parse_processes(char **commands)
 	i = 0;
 	while (commands[i])
 	{
-		//printf("%s\n", commands[i]);
+		printf("commands : %s\n", commands[i]);
 		exe[i] = malloc(sizeof(t_command));
 		exe[i]->io = parse_redir(&(commands[i]));
 		//printf("%s\n", commands[i]);

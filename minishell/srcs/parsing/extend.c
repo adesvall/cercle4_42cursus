@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 19:36:49 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/12 18:18:41 by upeyret          ###   ########.fr       */
+/*   Updated: 2021/12/14 15:46:22 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,25 @@ char	*ft_extend(char *str, int extend_v, int extend_q)
 
 	lst = NULL;
 	i = 0;
-	//printf("%s\n", str);
 	while (str[i] == ' ')
 		i++;
 	while (str[i])
 	{
 		start = i;
-		while (str[i] && (!extend_v || str[i] != '$') && (!extend_q || !ft_isin(str[i], "\'\"")))
+		while (str[i] && (!extend_v || str[i] != '$') && !ft_isin(str[i], "\'\""))
 			i++;
 		ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start], i - start)));
 		start = i;
-		if (str[i] == '\'' && extend_q) // attention si extend q faux les variables a l interrieur vont s extend qd meme
+		if (str[i] == '\'' || str[i] == '\"')
 		{
-			i = skip_quotes(str, i);
-			ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start + 1], i - 2 - start)));
+			if (str[i] == '\'' || !extend_q) // attention si extend q faux les variables a l interrieur vont s extend qd meme
+			{
+				i = skip_quotes(str, i);
+				ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start + extend_q], i - start - 2 * extend_q)));
+			}
+			else if (str[i] == '\"')
+				i = extend_quotes(str, i, &lst, extend_v);
 		}
-		else if (str[i] == '\"' && extend_q)
-			i = extend_quotes(str, i, &lst, extend_v);
 		else if (str[i] == '$' && extend_v)
 			i = extend_var(str, i, &lst);
 	}

@@ -33,14 +33,13 @@ all:		${NAME}
 $(NAME):	${OBJS} libft/libft.a
 			clang ${CFLAGS} -lreadline -o ${NAME} ${OBJS} libft/libft.a
 
-objs/%.o:	srcs/%.c objs
+objs/%.o:	srcs/%.c
+			@mkdir -p objs/exec
+			@mkdir -p objs/builtins
+			@mkdir -p objs/parsing
 			clang $(CFLAGS) -o $@ -c $<
 
 objs:
-			@mkdir objs
-			@mkdir objs/exec
-			@mkdir objs/builtins
-			@mkdir objs/parsing
 
 libft/libft.a:
 			make -C libft bonus
