@@ -6,10 +6,13 @@ int	check_var_name(char *name)
 
 	if (!name || (!ft_isalpha(*name) && *name != '_'))
 		return (0);
-	i = 0;
-	while (name[++i])
+	i = 1;
+	while (name[i])
+	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 			return (0);
+		i++;
+	}
 	return (1);
 }
 

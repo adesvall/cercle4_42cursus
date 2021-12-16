@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launcher.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 02:09:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/12 17:18:59 by upeyret          ###   ########.fr       */
+/*   Updated: 2021/12/16 16:33:05 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	launch_processes(t_command **commands, int exit_status)
 			if (pipe(tube))
 				ft_exit(errno, "Error", "pipe", commands);
 		if (i == 0 && is_builtin(commands[0]->argv[0]))
-			launch_builtin(commands, 0, fdout);
+			exit_status = launch_builtin(commands, 0, fdout);
 		else
 		{
 			pid = fork();

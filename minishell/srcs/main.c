@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/12 16:46:31 by upeyret          ###   ########.fr       */
+/*   Updated: 2021/12/16 15:58:54 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	g.env = load_env(env);
-	line = readline(PROMPT);
+	line = readline_tty(PROMPT);
 	while (line)
 	{
 		/* printf("%s\n", line); */
@@ -79,7 +79,7 @@ int	main(int ac, char **av, char **env)
 			g.is_running = 0;
 		}
 		free(line);
-		line = readline(PROMPT);
+		line = readline_tty(PROMPT);
 	}
 	write(1, "exit\n", 5);
 	clear_env(&g.env);

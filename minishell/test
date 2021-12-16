@@ -1,8 +1,19 @@
-echo '$USER'
-echo "$USER"
 cat plouc
 echo "$?"
+cat << EOF > plouc
+$USER
+"$?"
+'$USER'
+EOF
+cat plouc
 cd lol
-echo "$?"
-unset PATH
 echo $?
+echo '$?'
+expr $? + $?
+env | grep PATH
+unset PATH
+grep lol test
+env | grep PATH
+export -x PATH=/home/adesvall/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+env

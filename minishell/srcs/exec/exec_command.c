@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/24 00:30:52 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/16 18:14:33 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*parse_path(char *path, char *cmd)
 
 	if (!access(cmd, F_OK))
 		return (ft_strjoin("", cmd));
+	if (!path)
+		return (NULL);
 	tmp = ft_strjoin("/", cmd);
 	if (!tmp)
 		return (NULL);

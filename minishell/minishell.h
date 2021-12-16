@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/12 18:16:34 by upeyret          ###   ########.fr       */
+/*   Updated: 2021/12/16 16:24:09 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_data
 
 extern t_data	g;
 
+char		*readline_tty(char *line);
 int			parse_line(char *line, int exit_status);
 t_command	**parse_processes(char **command);
 int			launch_processes(t_command **commands, int exit_status);
@@ -70,7 +71,7 @@ char		*ft_lstjoin(t_list *lst);
 int			skip_quotes(char *line, int i);
 int			skip_redir(char *line, int i);
 int			skip_notredir(char *line, int i);
-char		*ft_extend(char *str, int extand_vars, int extand_quotes);
+char		*ft_extend(char *str, int extand_vars, int extand_quotes, int heredoc);
 
 int			disp_tab(char *argv[]);
 

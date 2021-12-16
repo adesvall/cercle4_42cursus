@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 19:36:49 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/14 15:46:22 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:27:01 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	extend_quotes(char *str, int i, t_list **lst, int and_vars)
 * et remplace le nom des variables d'environnement par leurs valeurs
 */
 
-char	*ft_extend(char *str, int extend_v, int extend_q)
+char	*ft_extend(char *str, int extend_v, int extend_q, int heredoc)
 {
 	t_list	*lst;
 	int		i;
@@ -72,13 +72,13 @@ char	*ft_extend(char *str, int extend_v, int extend_q)
 	while (str[i])
 	{
 		start = i;
-		while (str[i] && (!extend_v || str[i] != '$') && !ft_isin(str[i], "\'\""))
+		while (str[i] && (!extend_v || str[i] != '$') && (heredoc || !ft_isin(str[i], "\'\"")))
 			i++;
 		ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start], i - start)));
 		start = i;
-		if (str[i] == '\'' || str[i] == '\"')
+		if ((str[i] == '\'' || str[i] == '\"'))
 		{
-			if (str[i] == '\'' || !extend_q) // attention si extend q faux les variables a l interrieur vont s extend qd meme
+			if (str[i] == '\'' || !extend_q)
 			{
 				i = skip_quotes(str, i);
 				ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&str[start + extend_q], i - start - 2 * extend_q)));

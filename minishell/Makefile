@@ -26,7 +26,7 @@ SRCS		= $(addprefix srcs/, $(PURESRCS))
 
 OBJS		= $(addprefix objs/, $(PURESRCS:.c=.o))
 
-CFLAGS		= -Wall -Wextra -Werror -I.
+CFLAGS		= -Wall -Wextra -Werror -I. -fsanitize=address
 
 all:		${NAME}
 
@@ -45,7 +45,7 @@ libft/libft.a:
 			make -C libft bonus
 
 clean:
-			rm -f ${OBJS}
+			rm -rf objs
 			make -C libft clean
 
 fclean:		clean
