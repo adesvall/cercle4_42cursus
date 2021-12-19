@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/16 16:24:09 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:08:43 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define _XOPEN_SOURCE 700
+// # define _XOPEN_SOURCE 700
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -38,9 +38,11 @@ typedef struct s_redir
 
 typedef struct s_command
 {
+	int		pid;
 	t_redir	io;
 	char	**argv;
 	char	**env;
+	int		exit_status;
 }				t_command;
 
 typedef struct s_data
@@ -74,5 +76,7 @@ int			skip_notredir(char *line, int i);
 char		*ft_extend(char *str, int extand_vars, int extand_quotes, int heredoc);
 
 int			disp_tab(char *argv[]);
+
+int			wait_process(t_command **cmd);
 
 #endif

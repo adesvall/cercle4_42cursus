@@ -8,7 +8,8 @@ PARSING		= $(addprefix parsing/, extend.c \
 EXEC		= $(addprefix exec/, launcher.c \
 								exec_builtin.c \
 								exec_command.c \
-								exec_heredoc.c)
+								exec_heredoc.c \
+								wait_processes.c)
 
 BUILTIN		= $(addprefix builtins/, env1.c \
 									env2.c \
@@ -31,7 +32,7 @@ CFLAGS		= -Wall -Wextra -Werror -I. -fsanitize=address
 all:		${NAME}
 
 $(NAME):	${OBJS} libft/libft.a
-			clang ${CFLAGS} -lreadline -o ${NAME} ${OBJS} libft/libft.a
+			clang ${CFLAGS} -v -lreadline -o ${NAME} ${OBJS} libft/libft.a
 
 objs/%.o:	srcs/%.c
 			@mkdir -p objs/exec

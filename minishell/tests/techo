@@ -1,0 +1,17 @@
+echo -n -n -nnnn -nnnnm 
+echo "$HOME"
+echo a"bc"
+echo a “bc”
+
+echo "cat lol.c | cat > lol.c"
+echo $USER$var
+echo bonjour
+
+echo '"abc"'
+echo "'abc'"
+echo "" bonjour
+
+echo bonjour |
+echo bonjour > > out
+echo bonjour >>> test
+echo bonjour |   |
