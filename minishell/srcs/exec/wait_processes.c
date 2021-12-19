@@ -39,12 +39,20 @@ int	wait_process(t_command **cmd)
 	pid_t	pid_exec;
 	size_t	i;
 
+	// i = 0;
+	// while (cmd[i])
+	// {
+	// 	printf("%s: %d\n", cmd[i]->argv[0], cmd[i]->pid);
+	// 	i++;
+	// }
 	pid_exec = wait(&status);
 	while (pid_exec != -1)
 	{
+		// printf("%d\n", pid_exec);
 		i = 0;
-		while (cmd[i]->pid != pid_exec)
+		while (cmd[i] && cmd[i]->pid != pid_exec)
 			i++;
+		// printf("%d\n", cmd[i]->pid);
 		if (WIFEXITED(status))
 			cmd[i]->exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))

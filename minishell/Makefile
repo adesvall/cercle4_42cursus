@@ -32,7 +32,7 @@ CFLAGS		= -Wall -Wextra -Werror -I. -fsanitize=address
 all:		${NAME}
 
 $(NAME):	${OBJS} libft/libft.a
-			clang ${CFLAGS} -v -lreadline -o ${NAME} ${OBJS} libft/libft.a
+			clang ${CFLAGS} -lreadline -o ${NAME} ${OBJS} libft/libft.a
 
 objs/%.o:	srcs/%.c
 			@mkdir -p objs/exec

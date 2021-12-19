@@ -26,8 +26,6 @@ t_redir	parse_redir(char **command)
 	lst = NULL;
 	while (comm[i])
 	{
-		if (ft_isin(comm[i], "\"'"))
-			i = skip_quotes(comm, i);
 		start = i;
 		if (comm[i] == '<')
 		{
@@ -51,6 +49,8 @@ t_redir	parse_redir(char **command)
 		}
 		else
 		{
+			if (ft_isin(comm[i], "\"'"))
+				i = skip_quotes(comm, i);
 			i = skip_notredir(comm, i);
 			ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&comm[start], i - start)));
 		}
@@ -118,14 +118,14 @@ t_command	**parse_processes(char **commands)
 		exe[i]->io = parse_redir(&(commands[i]));
 		//printf("%s\n", commands[i]);
 		//printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
-		/*
+		
 		// printf("  Command : %s\n", commands[i]);
-		// printf("  Infile  : %s, fd is %d\n", exe[i]->io.infile, fdin);
-		// printf("  Outfile : %s, fd is %d\n", exe[i]->io.outfile, fdout);
-		*/
+		// printf("  Infile  : %s\n", exe[i]->io.infile);
+		// printf("  Outfile : %s\n", exe[i]->io.outfile);
+		
 		exe[i]->argv = construct_argv(commands[i]);
 		
-		// disp_tab(exe[i]->argv);
+		disp_tab(exe[i]->argv);
 		
 		exe[i]->env = NULL; // A reflechir
 		i++;
