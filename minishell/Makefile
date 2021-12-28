@@ -8,7 +8,8 @@ PARSING		= $(addprefix parsing/, extend.c \
 EXEC		= $(addprefix exec/, launcher.c \
 								exec_builtin.c \
 								exec_command.c \
-								exec_heredoc.c)
+								exec_heredoc.c \
+								wait_processes.c)
 
 BUILTIN		= $(addprefix builtins/, env1.c \
 									env2.c \

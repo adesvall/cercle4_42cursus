@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launcher.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 02:09:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/16 16:33:05 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:15:47 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	launch_processes(t_command **commands, int exit_status)
 				ft_exit(errno, "Error", "fork", commands);
 			if (pid == 0)
 				exec_fork(commands, i, tube, fdout);
+			else
+				commands[i]->pid = pid;
 		}
 		if (commands[i + 1])
 			close(fdout); 
@@ -75,7 +77,9 @@ int	launch_processes(t_command **commands, int exit_status)
 			close(tube[0]);
 		fdout = tube[1];
 	}
-	waitpid(pid, &exit_status, 0); // attention gestion du sigquit lorsque cat est en attente + verifier qu'aucun  builtin ne met l'entree standard en attente + comprendre tout lol
+	exit_status = wait_process(commands);
+	// waitpid(pid, &exit_status, 0);
+	// attention gestion du sigquit lorsque cat est en attente + verifier qu'aucun  builtin ne met l'entree standard en attente + comprendre tout lol
 	// anything like expr $? + $?
 	// printf("exit_status : %d\n", exit_status);//You can repeat the same in bash and compare it.
 	return (exit_status);
