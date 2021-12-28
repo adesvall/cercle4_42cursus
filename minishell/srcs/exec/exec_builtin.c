@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/24 00:58:46 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:48:15 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,41 @@ int	is_builtin(char *cmd)
 	return (0);
 }
 
-int	exec_builtin(t_command **exe, t_var **env)
+int	builtin_exit(char **argv, t_command **exes)
+{
+	int i;
+
+	write(2, "exit\n", 5);
+	if (argv[1])
+	{
+		if (argv[2])
+		{
+			write(2, "minishell: exit : trop d'arguments", 34);
+			return (1);
+		}
+		i = 0;
+		if (argv[1][i] == '+' || argv[1][i] == '-')
+			i++;
+		while (argv[1][i])
+		{
+			if (!ft_isin(argv[1][i], "0123456789") || i > 10)
+			{
+				write(2, "minishell: exit : argument numérique nécessaire", 49);
+				ft_exit(2, NULL, NULL, exes);
+			}
+			i++;
+		}
+		g.exit_status = ft_atoi(argv[1]);
+	}
+	ft_exit(WEXITSTATUS(g.exit_status), NULL, NULL, exes);
+	return (0);
+}
+
+int	exec_builtin(t_command **exes, t_var **env)
 {
 	char	**argv;
 
-	argv = exe[0]->argv;
+	argv = exes[0]->argv;
 	if (!ft_strcmp(argv[0], "cd"))
 		return (ft_cd(argv, *env));
 	if (!ft_strcmp(argv[0], "echo"))
@@ -41,7 +71,7 @@ int	exec_builtin(t_command **exe, t_var **env)
 	if (!ft_strcmp(argv[0], "unset"))
 		return (ft_unset(argv, env));
 	if (!ft_strcmp(argv[0], "exit"))
-		return (ft_exit(0, NULL, NULL, exe));
+		return (builtin_exit(argv, exes));
 	return (-2);
 }
 

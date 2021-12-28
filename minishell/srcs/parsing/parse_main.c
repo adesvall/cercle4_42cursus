@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/10 16:42:33 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:10:47 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,13 @@ char	**split_processes(char *line)
 	return (ft_split(line, '\n'));
 }
 
-int	parse_line(char *line, int exit_status)
+t_command	**parse_line(char *line)
 {
 	char		**commands;
 	t_command	**processes;
-	int			ret;
 
 	commands = split_processes(line);
 	processes = parse_processes(commands);
 	free(commands);
-	ret = launch_processes(processes, exit_status);
-	free_commands(processes);
-	return (ret);
+	return (processes);
 }

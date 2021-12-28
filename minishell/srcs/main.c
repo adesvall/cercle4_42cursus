@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/16 15:58:54 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:37:28 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,17 @@ int	is_empty(char *line)
 	return (1);
 }
 
+int handle_line(char *line, int exit_status)
+{
+	t_command	**processes;
+	int status;
+
+	processes = parse_line(line);
+	status = launch_processes(processes, exit_status);
+	free_commands(processes);
+	return (status);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
@@ -75,7 +86,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history(line);
 			g.is_running = 1;
-			g.exit_status = parse_line(line, g.exit_status);
+			g.exit_status = handle_line(line, g.exit_status);
 			g.is_running = 0;
 		}
 		free(line);

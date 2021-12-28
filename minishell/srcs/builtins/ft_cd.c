@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 17:52:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/09 19:27:50 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/28 16:53:47 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_cd(char **argv, t_var *env)
 	}
 	if (argv[1] && argv[2])
 	{
-		print_error("minishell: cd", "trop d'arguments");
+		write(2, "minishell: cd : trop d'arguments", 32);
 		return (1);
 	}
 	return (proceed_cd(argv, env));
