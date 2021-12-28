@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/28 17:48:15 by adesvall         ###   ########.fr       */
+/*   Updated: 2021/12/28 18:00:36 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	builtin_exit(char **argv, t_command **exes)
 		}
 		g.exit_status = ft_atoi(argv[1]);
 	}
-	ft_exit(WEXITSTATUS(g.exit_status), NULL, NULL, exes);
+	ft_exit(g.exit_status, NULL, NULL, exes);
 	return (0);
 }
 
