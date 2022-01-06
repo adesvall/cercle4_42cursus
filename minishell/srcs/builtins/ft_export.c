@@ -93,7 +93,22 @@ int	ft_export(char **argv, t_var **env)
 			i++;
 			continue ;
 		}
-		*egal = 0;
+		*egal = 0; // Message d'erreur de export $TOTO=12 incomplet quand TOTO=11 par exemple
+		printf("Egal + 1 : %s\n", (egal + 1));
+		printf("Len : %zu\n",ft_strlen(egal + 1));
+		printf("Argv[i + 1] : %s\n", argv[i + 1]);
+		printf("Argv[i] : %s\n", argv[i]);	
+		printf("Len argv[i]: %zu\n",ft_strlen(argv[i]));
+		if (ft_strlen(argv[i]) == 0)
+		{
+			printf("export: `=%s': not a valid identifier\n", egal + 1);
+			return (1);			
+		}
+		if (*(egal + 1) == 0 && argv[i + 1] != 0)
+		{
+			printf("export: `%s': not a valid identifier\n", argv[i + 1]);
+			return (1);
+		}
 		if (!check_var_name(argv[i]))
 		{
 			printf("export: `%s': not a valid identifier\n", argv[i]);
