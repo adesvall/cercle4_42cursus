@@ -38,4 +38,3 @@ int	ft_echo(char **args)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
-

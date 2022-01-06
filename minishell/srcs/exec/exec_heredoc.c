@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 16:42:04 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/16 16:24:28 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:32:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 char	*readline_tty(char *line)
 {
 	if (isatty(STDIN_FILENO))
-		return readline(line);
+		return (readline(line));
 	else
-		return readline(NULL);
+		return (readline(NULL));
 }
 
 int	heredoc(char *delim)
