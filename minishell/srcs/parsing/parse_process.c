@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/28 18:01:56 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/06 15:36:21 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,25 @@ int	disp_tab(char *argv[])
 	return (0);
 }
 
+void parse_error_msg(char c)
+{
+	printf("minishell: parse error near `%c'\n", c);
+}
+
+int isempty(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ') // identifier caracteres vides
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 t_command	**parse_processes(char **commands)
 {
 	t_command	**exe;
@@ -108,20 +127,27 @@ t_command	**parse_processes(char **commands)
 
 	i = 0;
 	while (commands[i])
+	{
+		printf("commands : %s\n", commands[i]);
+		if (isempty(commands[i]))
+		{
+			parse_error_msg('|');
+			return (NULL);
+		}
 		i++;
+	}
 	exe = malloc(sizeof(t_command *) * (i + 1));
 	i = 0;
 	while (commands[i])
 	{
-		// printf("commands : %s\n", commands[i]);
+		printf("commands : %s\n", commands[i]);
 		exe[i] = malloc(sizeof(t_command));
 		exe[i]->io = parse_redir(&(commands[i]));
-		//printf("%s\n", commands[i]);
-		//printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
+		printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
 		
-		// printf("  Command : %s\n", commands[i]);
-		// printf("  Infile  : %s\n", exe[i]->io.infile);
-		// printf("  Outfile : %s\n", exe[i]->io.outfile);
+		printf("  Command : %s\n", commands[i]);
+		printf("  Infile  : %s\n", exe[i]->io.infile);
+		printf("  Outfile : %s\n", exe[i]->io.outfile);
 		
 		exe[i]->argv = construct_argv(commands[i]);
 		

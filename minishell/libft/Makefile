@@ -15,7 +15,7 @@ OBJS		= ${SRCS:.c=.o}
 
 OBJSBON		= ${SRCSBON:.c=.o}
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address
 
 all:		${NAME}
 

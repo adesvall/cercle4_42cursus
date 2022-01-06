@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/28 17:37:28 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/06 14:29:36 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int handle_line(char *line, int exit_status)
 	int status;
 
 	processes = parse_line(line);
+	if (!processes)
+		return (1);
 	status = launch_processes(processes, exit_status);
 	free_commands(processes);
 	return (status);
