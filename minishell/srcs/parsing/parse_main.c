@@ -28,7 +28,7 @@ int ft_count(const char *str, char c)
 	return (n + 1);
 }
 
-static char	**ft_split2(const char *s, char c)
+static char	**simple_split(const char *s, char c)
 {
 	char	**res;
 	int		i;
@@ -69,7 +69,7 @@ char	**split_processes(char *line)
 		else
 			i++;
 	}
-	return (ft_split2(line, '\n'));
+	return (simple_split(line, '\n'));
 }
 
 t_command	**parse_line(char *line)

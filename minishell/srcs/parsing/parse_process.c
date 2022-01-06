@@ -113,7 +113,7 @@ int isempty(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != ' ') // identifier caracteres vides
+		if (!ft_isin(str[i], " \t\r\n\v\f"))
 			return (0);
 		i++;
 	}
@@ -128,9 +128,11 @@ t_command	**parse_processes(char **commands)
 	i = 0;
 	while (commands[i])
 	{
-		printf("commands : %s\n", commands[i]);
 		if (isempty(commands[i]))
 		{
+			i = 0;
+			while (commands[i])
+				free(commands[i++]);
 			parse_error_msg('|');
 			return (NULL);
 		}
@@ -140,10 +142,9 @@ t_command	**parse_processes(char **commands)
 	i = 0;
 	while (commands[i])
 	{
-		printf("commands : %s\n", commands[i]);
+		printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
 		exe[i] = malloc(sizeof(t_command));
 		exe[i]->io = parse_redir(&(commands[i]));
-		printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
 		
 		printf("  Command : %s\n", commands[i]);
 		printf("  Infile  : %s\n", exe[i]->io.infile);
