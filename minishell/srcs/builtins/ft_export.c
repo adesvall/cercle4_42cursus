@@ -1,4 +1,22 @@
+
+
 #include "builtins.h"
+
+int	check_var_value(char *name)
+{
+	int	i;
+
+	if (!name || (!ft_isalpha(*name) && *name != '_'))
+		return (0);
+	i = 1;
+	while (name[i])
+	{
+		if (!ft_isalnum(name[i]) && name[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	sort_tab(t_var	**tab)
 {
@@ -50,7 +68,7 @@ int	export_sort(t_var *env)
 
 	tab = get_tab(env);
 	i = 0;
-	while (tab[i])
+	while (tab[i+1])
 	{
 		printf("declare -x %s=%s\n", tab[i]->name, tab[i]->value);
 		i++;
@@ -76,8 +94,11 @@ int	ft_export(char **argv, t_var **env)
 			continue ;
 		}
 		*egal = 0;
-		if (!check_var_name(egal + 1))
+		if (!check_var_name(argv[i]))
+		{
+			printf("export: `%s': not a valid identifier\n", argv[i]);
 			return (1);
+		}
 		add_var(env, argv[i], egal + 1);
 		*egal = '=';
 		i++;
