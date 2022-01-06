@@ -29,7 +29,8 @@ void	free_command(t_command *command)
 {
 	free(command->io.infile);
 	free(command->io.outfile);
-	ft_abort(command->argv);
+	if (command->argv)
+		ft_abort(command->argv);
 	free(command);
 }
 

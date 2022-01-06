@@ -20,7 +20,7 @@ t_redir	parse_redir(char **command)
 	t_list	*lst;
 	char	*comm;
 
-	res = (t_redir){0, STDIN_FILENO, 0, STDOUT_FILENO};
+	res = (t_redir){0, 0, STDIN_FILENO, 0, STDOUT_FILENO};
 	comm = *command;
 	i = 0;
 	lst = NULL;
@@ -30,22 +30,34 @@ t_redir	parse_redir(char **command)
 		if (comm[i] == '<')
 		{
 			if (comm[i + 1] == '<')
+			{
 				res.heredoc = 1;
+				i++;
+			}
 			else
 				res.heredoc = 0;
 			free(res.infile);
 			i = skip_redir(comm, i);
-			res.infile = ft_extend(ft_strndup(&comm[start + 1 + res.heredoc], i - 1 - res.heredoc - start), !res.heredoc, 1, 0);
+			res.infile = ft_extend(ft_strndup(&comm[start + 1 + res.heredoc], \
+										i - 1 - res.heredoc - start), !res.heredoc, 1, 0);
+			if (isempty(res.infile))
+				res.error = -1;
 		}
 		else if (comm[i] == '>')
 		{
 			if (comm[i + 1] == '>')
+			{
 				res.outcat = 1;
+				i++;
+			}
 			else
 				res.outcat = 0;
 			free(res.outfile);
 			i = skip_redir(comm, i);
-			res.outfile = ft_extend(ft_strndup(&comm[start + 1 + res.outcat], i - 1 - res.outcat - start), 1, 1, 0);
+			res.outfile = ft_extend(ft_strndup(&comm[start + 1 + res.outcat], \
+											i - 1 - res.outcat - start), 1, 1, 0);
+			if (isempty(res.outfile))
+				res.error = -2;
 		}
 		else
 		{
@@ -106,18 +118,13 @@ void parse_error_msg(char c)
 	printf("minishell: parse error near `%c'\n", c);
 }
 
-int isempty(char *str)
+void free_elems(char **commands)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (str[i])
-	{
-		if (!ft_isin(str[i], " \t\r\n\v\f"))
-			return (0);
-		i++;
-	}
-	return (1);
+	while (commands[i])
+		free(commands[i++]);
 }
 
 t_command	**parse_processes(char **commands)
@@ -130,9 +137,7 @@ t_command	**parse_processes(char **commands)
 	{
 		if (isempty(commands[i]))
 		{
-			i = 0;
-			while (commands[i])
-				free(commands[i++]);
+			free_elems(commands);
 			parse_error_msg('|');
 			return (NULL);
 		}
@@ -144,17 +149,26 @@ t_command	**parse_processes(char **commands)
 	{
 		printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
 		exe[i] = malloc(sizeof(t_command));
-		exe[i]->io = parse_redir(&(commands[i]));
-		
+		exe[i]->io = parse_redir(&(commands[i])); // leaks = commands[i] car parsemain a lanciens
+		exe[i]->argv = NULL;
+		if (exe[i]->io.error == -1)
+			parse_error_msg('<');
+		if (exe[i]->io.error == -2)
+			parse_error_msg('>');
+		if (exe[i]->io.error)
+		{
+			free_elems(commands);
+			exe[i + 1] = NULL;
+			free_commands(exe);
+			return (NULL);
+		}
 		printf("  Command : %s\n", commands[i]);
 		printf("  Infile  : %s\n", exe[i]->io.infile);
 		printf("  Outfile : %s\n", exe[i]->io.outfile);
 		
 		exe[i]->argv = construct_argv(commands[i]);
-		
 		// disp_tab(exe[i]->argv);
-		
-		exe[i]->env = NULL; //:: A reflechir
+		exe[i]->env = NULL;
 		i++;
 	}
 	exe[i] = NULL;

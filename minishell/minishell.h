@@ -30,6 +30,7 @@
 
 typedef struct s_redir
 {
+	int 	error;
 	char	*infile;
 	int		heredoc;
 	char	*outfile;
@@ -70,6 +71,7 @@ int			ft_exit(int code, char *str, char *str2, t_command **exe);
 void		print_error(char *str, char *str2);
 
 char		*ft_lstjoin(t_list *lst);
+int			isempty(char *str);
 int			skip_quotes(char *line, int i);
 int			skip_redir(char *line, int i);
 int			skip_notredir(char *line, int i);

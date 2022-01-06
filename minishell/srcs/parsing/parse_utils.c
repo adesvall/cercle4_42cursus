@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+int isempty(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isin(str[i], " \t\r\n\v\f"))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int	skip_quotes(char *line, int i)
 {
 	char	c;
@@ -29,8 +43,6 @@ int	skip_redir(char *line, int i)
 
 	c = line[i];
 	i++;
-	if (line[i] == c)
-		i++;
 	while (line[i] == ' ')
 		i++;
 	while (line[i] && !ft_isin(line[i], " ><"))
