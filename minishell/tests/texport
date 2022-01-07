@@ -4,30 +4,25 @@ export TOTO=    "42"
 export TOTO=    " 42"
 export ZZZ=
 export ZZZ= 
-export ZZZ=          
+export ZZZ=
+env | grep ZZZ          
 
 export HELLO=HELLO2
-export $HELLO=HELL003
+export $HELLO=HELL03
+env | grep HELLO2
+
+export =1
+
+export "" "" "" "" zz=2
+env | grep zz
+
+export AAAA AAAAA AAA=1
+env | grep AAA
+
+export $VARUNSET=1
+
+echo "TESTS NE FONCTIONNANT PAS ENCORE"
 
 export TOTO=11
 export $TOTO=12
-
-export $VARUNSET=1
-export =1
-
-
-
-env export env
-./file_that_is_not_an_executable
-cat bla
-file_name
-not_cmd
-export $var=test avec var unset
-export la même variable
-export var puis export var=test
-export "" test=a
-export "" test=a puis env
-unset "" test
-unset =
-unset PWD
-unset var
+env | grep TOTO
