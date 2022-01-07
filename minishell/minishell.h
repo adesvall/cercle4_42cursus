@@ -58,7 +58,7 @@ extern t_data	g;
 char		*readline_tty(char *line);
 t_command	**parse_line(char *line);
 t_command	**parse_processes(char **command);
-int			launch_processes(t_command **commands, int exit_status);
+int			launch_processes(t_command **commands);
 void		prepare_redir(t_redir io, int *fdin, int *fdout, t_command **commands);
 int			exec_command(t_command **exe, int i, int fdin, int fdout);
 void		free_command(t_command *command);

@@ -43,7 +43,7 @@ void	exec_fork(t_command **commands, int i, int *tube, int fdout)
 	exec_command(commands, i, tube[0], fdout);
 }
 
-int	launch_processes(t_command **commands, int exit_status)
+int	launch_processes(t_command **commands)
 {
 	int	i;
 	int	pid;
@@ -61,7 +61,7 @@ int	launch_processes(t_command **commands, int exit_status)
 			if (pipe(tube))
 				ft_exit(errno, "Error", "pipe", commands);
 		if (i == 0 && is_builtin(commands[0]->argv[0]))
-			exit_status = launch_builtin(commands, 0, fdout);
+			commands[0]->exit_status = launch_builtin(commands, 0, fdout);
 		else
 		{
 			pid = fork();
@@ -78,10 +78,9 @@ int	launch_processes(t_command **commands, int exit_status)
 			close(tube[0]);
 		fdout = tube[1];
 	}
-	exit_status = wait_process(commands);
 	// waitpid(pid, &exit_status, 0);
 	// attention gestion du sigquit lorsque cat est en attente + verifier qu'aucun  builtin ne met l'entree standard en attente + comprendre tout lol
 	// anything like expr $? + $?
-	// printf("exit_status : %d\n", exit_status);//You can repeat the same in bash and compare it.
-	return (exit_status);
+	// printf("exit_status : %d\n", exit_status); // You can repeat the same in bash and compare it.
+	return (wait_process(commands));
 }

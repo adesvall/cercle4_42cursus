@@ -32,7 +32,7 @@ int	builtin_exit(char **argv, t_command **exes)
 	{
 		if (argv[2])
 		{
-			write(2, "minishell: exit : trop d'arguments", 34);
+			write(2, "minishell: exit : trop d'arguments\n", 35);
 			return (1);
 		}
 		i = 0;
@@ -42,7 +42,7 @@ int	builtin_exit(char **argv, t_command **exes)
 		{
 			if (!ft_isin(argv[1][i], "0123456789") || i > 10)
 			{
-				write(2, "minishell: exit : argument numérique nécessaire", 49);
+				write(2, "minishell: exit : argument numérique nécessaire\n", 50);
 				ft_exit(2, NULL, NULL, exes);
 			}
 			i++;
@@ -107,5 +107,5 @@ int	launch_builtin(t_command **commands, int tempin, int tempout)
 		dup2(oldout, STDOUT_FILENO);
 		close(oldout);
 	}
-	return (ret);
+	return (WEXITSTATUS(ret));
 }

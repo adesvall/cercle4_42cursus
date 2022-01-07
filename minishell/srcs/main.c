@@ -58,15 +58,15 @@ int	is_empty(char *line)
 	return (1);
 }
 
-int handle_line(char *line, int exit_status)
+int handle_line(char *line)
 {
 	t_command	**processes;
-	int status;
+	int 		status;
 
 	processes = parse_line(line);
 	if (!processes)
 		return (1);
-	status = launch_processes(processes, exit_status);
+	status = launch_processes(processes);
 	free_commands(processes);
 	return (status);
 }
@@ -88,7 +88,7 @@ int	main(int ac, char **av, char **env)
 		{
 			add_history(line);
 			g.is_running = 1;
-			g.exit_status = handle_line(line, g.exit_status);
+			g.exit_status = handle_line(line);
 			g.is_running = 0;
 		}
 		free(line);
