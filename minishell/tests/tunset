@@ -1,0 +1,22 @@
+echo "TESTS DE BASE"
+unset
+unset UNSETVAR
+unset ^SPECCHARVAR
+unset SPECCHAR^VAR
+
+export ZZ=1 ZZZ=2
+unset ZZ
+env | grep ZZ
+
+export ZZ=1 ZZA=2
+unset ZZ
+env | grep ZZ
+
+export ZZ=1 ZZA=2
+unset ZZ 
+env | grep ZZ
+
+export ZZ=1
+unset "" ZZ
+env | grep ZZ
+

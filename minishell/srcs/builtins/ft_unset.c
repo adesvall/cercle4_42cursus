@@ -40,35 +40,24 @@ int	unset_one(char *str, t_var **env)
 int	ft_unset(char **args, t_var **envp)
 {
 	int	i;
+	int flag;
+	int out;
 
 	i = 1;
-	/// rajouter check caracteres unset Ulysse=7
+	out = 0;
 	while (args[i])
 	{
+		flag = 0;
 		if (check_var_name(args[i]) == 1)
 			unset_one(args[i], envp);
+		else
+		{
+			printf("unset: `%s': not a valid identifier\n", args[i]);
+			flag = 1;
+		}
+		out = out + flag;
 		i++;
 	}
-	return (0);
+	out = (out > 0) * 1;
+	return (out);
 }
-/*
-int main(int ac, char **av, char **envp)
-{
-	t_var *env;
-
-	(void)ac;
-	(void)av;
-	env = load_env(envp);
-		printf("hkvrw\n");
-	add_var(&env, "TEST1", "1");
-	printf("%p\n", env);
-	add_var(&env, "TEST2", "2");
-	
-	//ft_export(av, &env);
-	ft_unset(av, &env);
-	print(env);
-
-	clear_list(&env);
-	return (0);
-}
-*/
