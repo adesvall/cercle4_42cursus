@@ -40,24 +40,20 @@ int	unset_one(char *str, t_var **env)
 int	ft_unset(char **args, t_var **envp)
 {
 	int	i;
-	int flag;
 	int out;
 
 	i = 1;
 	out = 0;
 	while (args[i])
 	{
-		flag = 0;
 		if (check_var_name(args[i]) == 1)
 			unset_one(args[i], envp);
 		else
 		{
 			printf("unset: `%s': not a valid identifier\n", args[i]);
-			flag = 1;
+			out = 1;
 		}
-		out = out + flag;
 		i++;
 	}
-	out = (out > 0) * 1;
 	return (out);
 }

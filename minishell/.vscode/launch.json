@@ -4,11 +4,13 @@
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
 	"configurations": [
+		
+
 		{
 			"name": "clang-12 - Build and debug active file",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${fileDirname}/minishell",
+			"program": "/home/adesvall/Documents/42cursus/cercle4_42cursus/minishell/minishell",
 			"args": [],
 			"stopAtEntry": false,
 			"cwd": "${fileDirname}",
@@ -22,8 +24,7 @@
 					"ignoreFailures": true
 				}
 			],
-			"preLaunchTask": "C/C++: clang-12 build active file",
-			"miDebuggerPath": "/usr/bin/lldb-mi-12"
+			"miDebuggerPath": "/usr/bin/lldb"
 		}
 	]
 }

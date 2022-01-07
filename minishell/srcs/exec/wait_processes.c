@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_processes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:32:57 by user42            #+#    #+#             */
-/*   Updated: 2022/01/06 12:33:00 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/07 22:13:40 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,67 @@
 
 static void	print_sigquit(t_command **cmd, int nb_cmd)
 {
-	int	i;
+	// int	i;
 
 	if (cmd[nb_cmd - 1]->exit_status == 131)
-		write(1, "^\\Quit\n", 7);
-	else
-	{
-		i = 0;
-		while (i < nb_cmd - 1)
-		{
-			if (cmd[i]->exit_status == 131)
-			{
-				write(1, "^\\", 2);
-				break ;
-			}
-			i++;
-		}
-	}
+		write(1, "Quit (core dumped)\n", 19);
+	// else
+	// {
+	// 	i = 0;
+	// 	while (i < nb_cmd - 1)
+	// 	{
+	// 		if (cmd[i]->exit_status == 131)
+	// 		{
+	// 			write(1, "^\\", 2);
+	// 			break ;
+	// 		}
+	// 		i++;
+	// 	}
+	// }
 }
 
 int	wait_process(t_command **cmd)
+{
+	int		status = 0;
+	size_t	i;
+
+	i = 0;
+	while (cmd[i])
+	{	
+		if (-1 == waitpid(cmd[i]->pid, &status, 0))
+			printf("ERROR\n");
+		printf("STATUS = %d, exit=%d, termsig=%d\n", status, WEXITSTATUS(status), WTERMSIG(status));
+		
+		if (WIFEXITED(status))
+			cmd[i]->exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			cmd[i]->exit_status = WTERMSIG(status) + 128;
+
+		i++;
+	}
+	
+	print_sigquit(cmd, i);
+	printf("END: STATUS = %d\n", cmd[i - 1]->exit_status);
+	return (cmd[i - 1]->exit_status);
+}
+
+int	wait_process2(t_command **cmd)
 {
 	int		status;
 	pid_t	pid_exec;
 	size_t	i;
 
-	// i = 0;
-	// while (cmd[i])
-	// {
-	// 	printf("%s: %d\n", cmd[i]->argv[0], cmd[i]->pid);
-	// 	i++;
-	// }
 	pid_exec = wait(&status);
 	while (pid_exec != -1)
 	{
-		// printf("%d\n", pid_exec);
 		i = 0;
 		while (cmd[i] && cmd[i]->pid != pid_exec)
 			i++;
-		// printf("%d\n", cmd[i]->pid);
+		// if (cmd[i] == NULL)
+		// {
+		// 	pid_exec = wait(&status);
+		// 	continue;
+		// }
 		if (WIFEXITED(status))
 			cmd[i]->exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
@@ -63,5 +85,6 @@ int	wait_process(t_command **cmd)
 	while (cmd[i])
 		i++;
 	print_sigquit(cmd, i);
+	printf("END: STATUS = %d\n", cmd[i - 1]->exit_status);
 	return (cmd[i - 1]->exit_status);
 }

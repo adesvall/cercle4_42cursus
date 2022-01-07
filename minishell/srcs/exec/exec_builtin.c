@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/28 18:00:36 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/07 20:24:03 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ int	launch_builtin(t_command **commands, int tempin, int tempout)
 		dup2(oldout, STDOUT_FILENO);
 		close(oldout);
 	}
-	return (WEXITSTATUS(ret));
+	return (ret);
 }
