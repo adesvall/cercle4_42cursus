@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/07 22:15:56 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/07 23:31:45 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,9 @@ void	handle_sig(int sig)
 
 int	sig_init(void)
 {
-	struct sigaction	act;
-
-	act.sa_handler = &handle_sig;
-	if (sigaction(SIGINT, &act, NULL))
+	if (signal(SIGINT, handle_sig))
 		return (1);
-	if (sigaction(SIGQUIT, &act, NULL))
+	if (signal(SIGQUIT, handle_sig))
 		return (1);
 	return (0);
 }
