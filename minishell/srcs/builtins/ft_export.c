@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/07 22:31:42 by adesvall          #+#    #+#             */
+/*   Updated: 2022/01/07 22:33:34 by adesvall         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "builtins.h"
 
@@ -47,9 +57,9 @@ t_var	**get_tab(t_var *env)
 {
 	t_var	**tab;
 	int		i;
-	
+
 	i = 0;
-	tab = malloc((env_size(env) + 1) * sizeof(char*));
+	tab = malloc((env_size(env) + 1) * sizeof(char *));
 	while (env)
 	{
 		tab[i] = env;
@@ -68,7 +78,7 @@ int	export_sort(t_var *env)
 
 	tab = get_tab(env);
 	i = 0;
-	while (tab[i+1])
+	while (tab[i + 1])
 	{
 		printf("declare -x %s=%s\n", tab[i]->name, tab[i]->value);
 		i++;
@@ -76,7 +86,6 @@ int	export_sort(t_var *env)
 	free(tab);
 	return (0);
 }
-
 
 int	ft_export(char **argv, t_var **env)
 {
@@ -95,7 +104,7 @@ int	ft_export(char **argv, t_var **env)
 		if (ft_strlen(argv[i]) == 0)
 		{
 			printf("export: `': not a valid identifier\n");
-			flag = 1;		
+			flag = 1;
 		}
 		egal = ft_strchr(argv[i], '=');
 		if (!egal)

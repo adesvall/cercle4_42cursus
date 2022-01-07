@@ -6,12 +6,11 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 13:17:28 by adesvall          #+#    #+#             */
-/*   Updated: 2021/10/24 17:06:14 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/07 22:30:36 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

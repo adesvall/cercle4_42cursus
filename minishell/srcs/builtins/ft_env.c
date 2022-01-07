@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:33:35 by user42            #+#    #+#             */
-/*   Updated: 2022/01/06 12:33:41 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/07 22:31:37 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	print(t_var *env)
 	return (0);
 }
 
-int ft_env(char **args, t_var *env)
+int	ft_env(char **args, t_var *env)
 {
 	if (!args[1])
 	{
