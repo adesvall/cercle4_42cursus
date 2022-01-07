@@ -1,0 +1,20 @@
+>
+<
+>>
+<<
+>>>
+<<<
+
+echo hello >
+echo hello >>
+echo hello >>>
+echo hello |>
+echo hello |>>
+echo hello <>
+
+< file
+cat < f >>
+cat <<< file
+>file
+>> file
+>>>file

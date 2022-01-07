@@ -148,12 +148,13 @@ t_command	**parse_processes(char **commands)
 	while (commands[i])
 	{
 		printf("PROCESS n°%d with command \"%s\"\n", i, commands[i]);
+
 		exe[i] = malloc(sizeof(t_command));
-		exe[i]->io = parse_redir(&(commands[i])); // leaks = commands[i] car parsemain a lanciens
+		exe[i]->io = parse_redir(&(commands[i]));
 		exe[i]->argv = NULL;
 		if (exe[i]->io.error == -1)
 			parse_error_msg('<');
-		if (exe[i]->io.error == -2)
+		else if (exe[i]->io.error == -2)
 			parse_error_msg('>');
 		if (exe[i]->io.error)
 		{
@@ -162,6 +163,11 @@ t_command	**parse_processes(char **commands)
 			free_commands(exe);
 			return (NULL);
 		}
+		i++;
+	}
+	i = 0;
+	while (commands[i])
+	{
 		printf("  Command : %s\n", commands[i]);
 		printf("  Infile  : %s\n", exe[i]->io.infile);
 		printf("  Outfile : %s\n", exe[i]->io.outfile);
