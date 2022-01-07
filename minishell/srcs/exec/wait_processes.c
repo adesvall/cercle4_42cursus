@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:32:57 by user42            #+#    #+#             */
-/*   Updated: 2022/01/07 22:13:40 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/07 23:24:39 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	wait_process(t_command **cmd)
 	i = 0;
 	while (cmd[i])
 	{	
-		if (-1 == waitpid(cmd[i]->pid, &status, 0))
+		printf("pid: %d\n", cmd[i]->pid); // a suppr
+		if (waitpid(cmd[i]->pid, &status, 0) == -1) // ca renvoie -1 qd on fqit sigquit.. pk ?
 			printf("ERROR\n");
 		printf("STATUS = %d, exit=%d, termsig=%d\n", status, WEXITSTATUS(status), WTERMSIG(status));
 		

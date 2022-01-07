@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launcher.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 02:09:25 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/19 17:15:47 by upeyret          ###   ########.fr       */
+/*   Updated: 2022/01/07 23:14:31 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,11 @@ int	launch_processes(t_command **commands)
 			if (pid == 0)
 				exec_fork(commands, i, tube, fdout);
 			else
+			{
+				printf("nm: %d, pid: %d\n", i, pid); // a supr
 				commands[i]->pid = pid;
+			}
+
 		}
 		if (commands[i + 1])
 			close(fdout); 

@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 22:31:42 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/07 22:33:34 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/07 22:50:46 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	ft_export(char **argv, t_var **env)
 		// printf("Egal + 1 : %s\n", (egal + 1));
 		// printf("Len : %zu\n",ft_strlen(egal + 1));
 		// printf("Argv[i + 1] : %s\n", argv[i + 1]);
-		// printf("Argv[i] : %s\n", argv[i]);	
+		// printf("Argv[i] : %s\n", argv[i]);
 		// printf("Len argv[i]: %zu\n",ft_strlen(argv[i]));
 		if (ft_strlen(argv[i]) == 0)
 		{
