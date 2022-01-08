@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/08 13:29:58 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 14:48:12 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,6 @@ int	sig_init(void)
 	if (signal(SIGQUIT, handle_sig))
 		return (1);
 	return (0);
-}
-
-int	is_empty(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (!ft_isin(line[i], " \t"))
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 int	handle_line(char *line)

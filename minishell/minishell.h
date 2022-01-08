@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/28 17:50:51 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 14:48:51 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			ft_exit(int code, char *str, char *str2, t_command **exe);
 void		print_error(char *str, char *str2);
 
 char		*ft_lstjoin(t_list *lst);
-int			isempty(char *str);
+int			is_empty(char *str);
 int			skip_quotes(char *line, int i);
 int			skip_redir(char *line, int i);
 int			skip_notredir(char *line, int i);

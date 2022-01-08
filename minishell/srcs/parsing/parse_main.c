@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/06 15:41:30 by upeyret          ###   ########.fr       */
+/*   Updated: 2022/01/08 13:51:25 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int ft_count(const char *str, char c)
+int	ft_count(const char *str, char c)
 {
-	int i;
-	int n;
-	
+	int	i;
+	int	n;
+
 	i = 0;
 	n = 0;
 	while (str[i])
@@ -33,7 +33,7 @@ static char	**simple_split(const char *s, char c)
 	char	**res;
 	int		i;
 	int		count;
-	int 	ncount;
+	int		ncount;
 
 	ncount = ft_count(s, c);
 	res = malloc(sizeof(char *) * (ncount + 1));

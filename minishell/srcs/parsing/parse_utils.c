@@ -6,15 +6,15 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 01:44:08 by adesvall          #+#    #+#             */
-/*   Updated: 2021/11/07 16:28:45 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 14:48:19 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int isempty(char *str)
+int	is_empty(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])

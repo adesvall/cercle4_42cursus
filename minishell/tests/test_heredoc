@@ -1,10 +1,9 @@
-cat plouc
-echo "$?"
 cat << EOF > plouc
 $USER
-"$?"
+"$USER"
 '$USER'
 EOF
+exit
 cat plouc
 cd lol
 echo $?

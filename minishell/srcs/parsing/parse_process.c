@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/07 15:19:51 by upeyret          ###   ########.fr       */
+/*   Updated: 2022/01/08 14:49:13 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_redir	parse_redir(char **command)
 			i = skip_redir(comm, i);
 			res.infile = ft_extend(ft_strndup(&comm[start + 1 + res.heredoc], \
 										i - 1 - res.heredoc - start), !res.heredoc, 1, 0);
-			if (isempty(res.infile))
+			if (is_empty(res.infile))
 				res.error = -1;
 		}
 		else if (comm[i] == '>')
@@ -56,7 +56,7 @@ t_redir	parse_redir(char **command)
 			i = skip_redir(comm, i);
 			res.outfile = ft_extend(ft_strndup(&comm[start + 1 + res.outcat], \
 											i - 1 - res.outcat - start), 1, 1, 0);
-			if (isempty(res.outfile))
+			if (is_empty(res.outfile))
 				res.error = -2;
 		}
 		else
@@ -135,7 +135,7 @@ t_command	**parse_processes(char **commands)
 	i = 0;
 	while (commands[i])
 	{
-		if (isempty(commands[i]))
+		if (is_empty(commands[i]))
 		{
 			free_elems(commands);
 			parse_error_msg('|');
