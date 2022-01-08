@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:33:35 by user42            #+#    #+#             */
-/*   Updated: 2022/01/08 11:32:09 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/08 17:38:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	ft_env(char **args, t_var *env)
 		print(env);
 		return (0);
 	}
-	printf("%s\n", "Error: too much arguments.");
+	printf("env: ‘%s’: No such file or directory\n", args[1]);
 	return (1);
 }
