@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:53:32 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/07 23:31:45 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 13:29:58 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ int	is_empty(char *line)
 	return (1);
 }
 
-int handle_line(char *line)
+int	handle_line(char *line)
 {
 	t_command	**processes;
-	int 		status;
+	int			status;
 
 	processes = parse_line(line);
 	if (!processes)
@@ -80,7 +80,6 @@ int	main(int ac, char **av, char **env)
 	line = readline_tty(PROMPT);
 	while (line)
 	{
-		/* printf("%s\n", line); */
 		if (*line && !is_empty(line))
 		{
 			add_history(line);
