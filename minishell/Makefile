@@ -16,6 +16,7 @@ BUILTIN		= $(addprefix builtins/, env1.c \
 									ft_cd.c \
 									ft_pwd.c \
 									ft_export.c \
+									ft_export_utils.c \
 									ft_unset.c \
 									ft_echo.c \
 									ft_env.c \

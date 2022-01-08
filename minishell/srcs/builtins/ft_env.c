@@ -3,20 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:33:35 by user42            #+#    #+#             */
-/*   Updated: 2022/01/07 22:31:37 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 11:32:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-SOURCES
-https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux-fr
-
-https://stackoverflow.com/questions/2085302/printing-all-environment-variables-in-c-c
-
-*/
 
 #include "builtins.h"
 
@@ -40,31 +32,3 @@ int	ft_env(char **args, t_var *env)
 	printf("%s\n", "Error: too much arguments.");
 	return (1);
 }
-
-/*
-
-Pour memoire, ce qu'ils faisaient eux :
-
-#include "minishell.h"
-
-int	mini_env(char **args, t_var *var_list)
-{
-	t_var	*var;
-
-	if (var_list)
-	{
-		(void)args;
-		var = var_list;
-		while (var)
-		{
-			ft_putstr_fd(var->name, STDOUT_FILENO);
-			ft_putchar_fd('=', STDOUT_FILENO);
-			ft_putendl_fd(var->value, STDOUT_FILENO);
-			var = var->next;
-		}
-	}
-	return (0);
-}
-
-
-*/

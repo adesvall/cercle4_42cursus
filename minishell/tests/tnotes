@@ -1,0 +1,16 @@
+### NOTES ###
+
+Avant de push
+ - Enlever le fsanityze
+ - Check /* pour voir qu'il n'y a pas de connerie
+ - crtl + F les headers qu'il n'y a pas les noms des autres gars
+  - Checker la version de la norminette sur l'intra et vérifier que c'est la bonne version, puis la refiare
+
+
+ Tests encore à faire
+ - Refaire les fulls tests sur export
+
+ Augustin
+  - Bizarre pourquoi ca affiche tout le temps error comme ça mtn ?
+  
+
