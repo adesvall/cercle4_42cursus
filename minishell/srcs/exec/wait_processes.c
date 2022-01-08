@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_processes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:32:57 by user42            #+#    #+#             */
-/*   Updated: 2022/01/07 23:35:09 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 13:27:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	wait_process(t_command **cmd)
 {
-	int		status = 0;
+	int		status;
 	size_t	i;
 
+	status = 0;
 	i = 0;
 	while (cmd[i])
 	{	
 		if (waitpid(cmd[i]->pid, &status, 0) == -1)
-			printf("ERROR\n");		
+			printf("ERROR\n");
 		if (WIFEXITED(status))
 			cmd[i]->exit_status = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 			cmd[i]->exit_status = WTERMSIG(status) + 128;
-
 		i++;
 	}
 	if (cmd[i - 1]->exit_status == 131)

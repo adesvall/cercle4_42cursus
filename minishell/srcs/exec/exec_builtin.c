@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/07 20:24:03 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 13:23:56 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	is_builtin(char *cmd)
 {
 	if (!cmd)
 		return (0);
-	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "env")
+	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo")
+		|| !ft_strcmp(cmd, "env")
 		|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "pwd")
 		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "exit"))
 		return (1);
@@ -25,7 +26,7 @@ int	is_builtin(char *cmd)
 
 int	builtin_exit(char **argv, t_command **exes)
 {
-	int i;
+	int	i;
 
 	write(2, "exit\n", 5);
 	if (argv[1])

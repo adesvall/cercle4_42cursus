@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launcher.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 02:09:25 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/07 23:36:56 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 13:22:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,9 @@ int	launch_processes(t_command **commands)
 				exec_fork(commands, i, tube, fdout);
 			else
 				commands[i]->pid = pid;
-
 		}
 		if (commands[i + 1])
-			close(fdout); 
+			close(fdout);
 		if (i > 0)
 			close(tube[0]);
 		fdout = tube[1];
