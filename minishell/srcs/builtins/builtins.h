@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/06 12:34:47 by user42            #+#    #+#             */
-/*   Updated: 2022/01/08 12:11:04 by user42           ###   ########.fr       */
+/*   Created: 2022/01/08 12:29:36 by user42            #+#    #+#             */
+/*   Updated: 2022/01/08 12:30:00 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,9 @@ int		env_size(t_var *env);
 char	*get_var(t_var *env, char *name);
 int		check_var_name(char *name);
 
-int	check_var_value(char *name);
+int		check_var_value(char *name);
 void	sort_tab(t_var	**tab);
 t_var	**get_tab(t_var *env);
-int	export_sort(t_var *env);
-
+int		export_sort(t_var *env);
 
 #endif

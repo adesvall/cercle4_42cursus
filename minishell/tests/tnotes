@@ -5,6 +5,10 @@ Avant de push
  - Check /* pour voir qu'il n'y a pas de connerie
  - crtl + F les headers qu'il n'y a pas les noms des autres gars
   - Checker la version de la norminette sur l'intra et vérifier que c'est la bonne version, puis la refiare
+ - Vérifier qu'on a bien  les headers partout
+
+Norminette :
+ - Bug des headers à régler ?
 
 
  Tests encore à faire
@@ -12,5 +16,7 @@ Avant de push
 
  Augustin
   - Bizarre pourquoi ca affiche tout le temps error comme ça mtn ?
-  
+
+
+
 
