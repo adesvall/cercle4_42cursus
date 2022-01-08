@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:34:14 by user42            #+#    #+#             */
-/*   Updated: 2022/01/06 12:34:16 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/08 17:47:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_cd(char **argv, t_var *env)
 	}
 	if (argv[1] && argv[2])
 	{
-		write(2, "minishell: cd : trop d'arguments", 32);
+		write(2, "minishell: cd : too many arguments\n", 36);
 		return (1);
 	}
 	return (proceed_cd(argv, env));

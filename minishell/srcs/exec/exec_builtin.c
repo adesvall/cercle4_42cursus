@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/08 13:47:19 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 17:47:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	builtin_exit(char **argv, t_command **exes)
 	{
 		if (argv[2])
 		{
-			write(2, "minishell: exit : trop d'arguments\n", 35);
+			write(2, "minishell: exit : too many arguments\n", 37);
 			return (1);
 		}
 		i = 0;
