@@ -20,3 +20,7 @@ export ZZ=1
 unset "" ZZ
 env | grep ZZ
 
+unset PATH
+ls
+export PATH=/usr/bin:/bin
+ls

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/08 14:49:13 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/08 23:32:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	disp_tab(char *argv[])
 
 void parse_error_msg(char c)
 {
-	printf("minishell: parse error near `%c'\n", c);
+	printf("minishell: syntax error near unexpected token `%c'\n", c);
 }
 
 void free_elems(char **commands)

@@ -1,0 +1,11 @@
+<a cat <b <c
+
+<a cat <b <c      avec b n'existe pas (ou pas les droits)
+>a cat <b >>cc
+>a ls >b >>c >d
+>a ls <machin >>c >d     avec machin n'exite pas
+>file
+> test1 < test2
+cat < test
+echo bonjour > test_1
+not_cmd bonjour > salut
