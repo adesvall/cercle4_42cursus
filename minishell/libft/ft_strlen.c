@@ -6,7 +6,7 @@
 /*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/17 12:51:18 by user42            #+#    #+#             */
-/*   Updated: 2022/01/11 16:40:11 by upeyret          ###   ########.fr       */
+/*   Updated: 2022/01/11 17:34:15 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	if (s == NULL)
-		return (0);	
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;

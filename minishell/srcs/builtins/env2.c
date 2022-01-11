@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 12:40:34 by user42            #+#    #+#             */
-/*   Updated: 2022/01/06 12:40:56 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/11 17:25:37 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 char	*get_var(t_var *env, char *name)
 {
+	if (ft_strlen(name) == 0)
+		return ("$");
 	while (env)
 	{
 		if (!ft_strcmp(env->name, name))

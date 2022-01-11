@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extend.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/20 19:36:49 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/08 14:40:12 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/11 17:28:41 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ int	extend_var(char *str, int i, t_list **lst)
 	var_value = get_var(g_data.env, var_name);
 	free(var_name);
 	if (!var_value)
-		var_value = "zrgz";
-	else
-		ft_lstadd_back(lst, ft_lstnew(ft_strdup(var_value)));
+		var_value = "";
+	ft_lstadd_back(lst, ft_lstnew(ft_strdup(var_value)));
 	return (i);
 }
 
