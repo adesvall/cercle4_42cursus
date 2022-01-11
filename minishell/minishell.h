@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 15:16:39 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/11 10:29:23 by upeyret          ###   ########.fr       */
+/*   Updated: 2022/01/11 16:09:47 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ typedef struct s_data
 	t_var	*env;
 }				t_data;
 
-extern t_data	g;
+extern t_data	g_data;
 
 char		*readline_tty(char *line);
 t_command	**parse_line(char *line);
 t_command	**parse_processes(char **command);
 int			launch_processes(t_command **commands);
-void		prepare_redir(t_redir io, int *fdin, int *fdout, t_command **commands);
+void		prepare_redir(t_redir io, int *fin, int *fout, t_command **comms);
 int			exec_command(t_command **exe, int i, int fdin, int fdout);
 void		free_command(t_command *command);
 void		free_commands(t_command **commands);
@@ -75,8 +75,9 @@ int			is_empty(char *str);
 int			skip_quotes(char *line, int i);
 int			skip_redir(char *line, int i);
 int			skip_notredir(char *line, int i);
-char		*ft_extend(char *str, int extand_vars, int extand_quotes, int heredoc);
+char		*ft_extend(char *str, int e_vars, int e_quotes, int hdoc);
 
+t_redir		parse_redir(char **command);
 int			disp_tab(char *argv[]);
 
 int			wait_process(t_command **cmd);

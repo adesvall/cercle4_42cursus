@@ -107,19 +107,3 @@ int	env_size(t_var *env)
 	}
 	return (size);
 }
-
-// int main(int ac, char **av, char **envp)
-// {
-// 	t_var *env;
-
-// 	(void)ac;
-// 	(void)av;
-// 	env = load_env(envp);
-// 	while (env->next)
-// 	{
-// 		printf("%s=%s\n", env->name, env->value);
-// 		env = env->next;
-// 	}
-// 	clear_list(&env);
-// 	return (0);
-// }

@@ -85,7 +85,7 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 
 	exe = commands[i];
 	prepare_redir(exe->io, &fdin, &fdout, commands);
-	path = parse_path(get_var(g.env, "PATH"), exe->argv[0]);
+	path = parse_path(get_var(g_data.env, "PATH"), exe->argv[0]);
 	if (!path)
 		ft_exit(127, exe->argv[0], "command not found", commands);
 	if (fdin != STDIN_FILENO)
@@ -98,12 +98,7 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 		dup2(fdout, STDOUT_FILENO);
 		close(fdout);
 	}
-	/*
-	add_var(&g.env, "_", path);
-	if (is_builtin(exe->argv[0]))
-	exit(exec_builtin(exe, &g.env));
-	*/
-	exe->env = unload_env(g.env);
+	exe->env = unload_env(g_data.env);
 	if (execve(path, exe->argv, exe->env) == -1)
 		ft_exit(126, exe->argv[0], "can't execute command", commands);
 	return (0);

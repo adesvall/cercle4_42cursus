@@ -22,13 +22,13 @@ int	extend_var(char *str, int i, t_list **lst)
 	i++;
 	if (str[i] == '?')
 	{
-		ft_lstadd_back(lst, ft_lstnew(ft_itoa(g.exit_status)));
+		ft_lstadd_back(lst, ft_lstnew(ft_itoa(g_data.exit_status)));
 		return (i + 1);
 	}	
 	while (ft_isalnum(str[i]) || str[i] == '_')
 		i++;
 	var_name = ft_strndup(&str[start + 1], i - 1 - start);
-	var_value = get_var(g.env, var_name);
+	var_value = get_var(g_data.env, var_name);
 	free(var_name);
 	if (!var_value)
 		var_value = "zrgz";

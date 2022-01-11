@@ -25,10 +25,9 @@ int	print(t_var *env)
 int	ft_env(char **args, t_var *env)
 {
 	if (!args[1])
-	{
-		print(env);
-		return (0);
-	}
-	printf("env: ‘%s’: No such file or directory\n", args[1]);
+		return (print(env));
+	ft_putstr_fd("env: ‘", STDERR_FILENO);
+	ft_putstr_fd(args[1], STDERR_FILENO);
+	ft_putstr_fd("’: No such file or directory\n", STDERR_FILENO);
 	return (1);
 }

@@ -62,7 +62,9 @@ int	ft_unset(char **args, t_var **envp)
 			unset_one(args[i], envp);
 		else
 		{
-			printf("unset: `%s': not a valid identifier\n", args[i]);
+			ft_putstr_fd("unset: `", STDERR_FILENO);
+			ft_putstr_fd(args[i], STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 			out = 1;
 		}
 		i++;

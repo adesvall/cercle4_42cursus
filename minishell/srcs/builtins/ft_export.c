@@ -29,17 +29,23 @@ int	ft_export3(char **argv, char *egal, int i, int flag)
 {
 	if (ft_strlen(argv[i]) == 0)
 	{
-		printf("export: `=%s': not a valid identifier\n", egal + 1);
+		ft_putstr_fd("export: `=", STDERR_FILENO);
+		ft_putstr_fd(egal + 1, STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		flag = 1;
 	}
 	if (*(egal + 1) == 0 && argv[i + 1] != 0 && flag == 0)
 	{
-		printf("export: `%s': not a valid identifier\n", argv[i + 1]);
+		ft_putstr_fd("export: `", STDERR_FILENO);
+		ft_putstr_fd(argv[i + 1], STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		flag = 1;
 	}
 	if (!check_var_name(argv[i]) && flag == 0)
 	{
-		printf("export: `%s': not a valid identifier\n", argv[i]);
+		ft_putstr_fd("export: `", STDERR_FILENO);
+		ft_putstr_fd(argv[i], STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 		flag = 1;
 	}
 	return (flag);

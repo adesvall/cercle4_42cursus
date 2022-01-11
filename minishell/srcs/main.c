@@ -13,7 +13,7 @@
 // Relink 3eme make
 #include "minishell.h"
 
-t_data	g = {.exit_status = 0, .is_running = 0, .env = NULL};
+t_data	g_data = {.exit_status = 0, .is_running = 0, .env = NULL};
 
 void	handle_sig(int sig)
 {
@@ -22,9 +22,9 @@ void	handle_sig(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		if (!g.is_running)
+		if (!g_data.is_running)
 			rl_redisplay();
-		g.exit_status = 130;
+		g_data.exit_status = 130;
 	}
 	if (sig == SIGQUIT)
 	{
@@ -48,7 +48,7 @@ int	handle_line(char *line)
 
 	processes = parse_line(line);
 	if (!processes)
-		return (1);
+		return (2);
 	status = launch_processes(processes);
 	free_commands(processes);
 	return (status);
@@ -62,21 +62,21 @@ int	main(int ac, char **av, char **env)
 		return (0);
 	(void)ac;
 	(void)av;
-	g.env = load_env(env);
+	g_data.env = load_env(env);
 	line = readline_tty(PROMPT);
 	while (line)
 	{
 		if (*line && !is_empty(line))
 		{
 			add_history(line);
-			g.is_running = 1;
-			g.exit_status = handle_line(line);
-			g.is_running = 0;
+			g_data.is_running = 1;
+			g_data.exit_status = handle_line(line);
+			g_data.is_running = 0;
 		}
 		free(line);
 		line = readline_tty(PROMPT);
 	}
 	write(1, "exit\n", 5);
-	clear_env(&g.env);
-	return (g.exit_status);
+	clear_env(&g_data.env);
+	return (g_data.exit_status);
 }

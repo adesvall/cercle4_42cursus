@@ -52,6 +52,6 @@ int	ft_exit(int code, char *s, char *s2, t_command **exes)
 	print_error(s, s2);
 	if (exes)
 		free_commands(exes);
-	clear_env(&g.env);
+	clear_env(&g_data.env);
 	exit(code);
 }

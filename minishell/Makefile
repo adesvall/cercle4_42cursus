@@ -3,6 +3,7 @@ NAME		= minishell
 PARSING		= $(addprefix parsing/, extend.c \
 									parse_main.c \
 									parse_process.c \
+									parse_redir.c \
 									parse_utils.c)
 
 EXEC		= $(addprefix exec/, launcher.c \

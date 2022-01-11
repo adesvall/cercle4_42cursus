@@ -24,7 +24,7 @@ int	wait_process(t_command **cmd)
 		if (!is_builtin(cmd[i]->argv[0]))
 		{
 			if (waitpid(cmd[i]->pid, &status, 0) == -1)
-				printf("ERROR\n");
+				write(STDERR_FILENO, "ERROR\n", 6);
 			if (WIFEXITED(status))
 				cmd[i]->exit_status = WEXITSTATUS(status);
 			else if (WIFSIGNALED(status))
