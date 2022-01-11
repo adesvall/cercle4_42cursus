@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 01:44:08 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/08 14:48:19 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:31:29 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_empty(char *str)
 {
 	int	i;
 
+	if (!str)
+		return (1);
 	i = 0;
 	while (str[i])
 	{

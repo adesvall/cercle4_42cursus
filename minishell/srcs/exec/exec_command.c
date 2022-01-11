@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 22:04:16 by adesvall          #+#    #+#             */
-/*   Updated: 2021/12/16 18:14:33 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:30:52 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	exec_command(t_command **commands, int i, int fdin, int fdout)
 
 	exe = commands[i];
 	prepare_redir(exe->io, &fdin, &fdout, commands);
+	if (is_empty(exe->argv[0]))
+		ft_exit(0, NULL, NULL, commands);
 	path = parse_path(get_var(g_data.env, "PATH"), exe->argv[0]);
 	if (!path)
 		ft_exit(127, exe->argv[0], "command not found", commands);
