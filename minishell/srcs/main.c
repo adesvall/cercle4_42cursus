@@ -78,4 +78,5 @@ int	main(int ac, char **av, char **env)
 	}
 	write(1, "exit\n", 5);
 	clear_env(&g.env);
+	return (g.exit_status);
 }

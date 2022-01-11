@@ -22,7 +22,8 @@ int	sig_init(void)
 }
 
 int main() {
-	int status =0;
+	int status = 0;
+
 	int pid = fork();
 
 	sig_init();
