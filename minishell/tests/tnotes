@@ -1,15 +1,18 @@
 ### NOTES ###
 
-Avant de push
- - Enlever le fsanityze
- - Check /* pour voir qu'il n'y a pas de connerie
- - crtl + F les headers qu'il n'y a pas les noms des autres gars
+Check OK
   - Checker la version de la norminette sur l'intra et vérifier que c'est la bonne version, puis la refiare
+ - crtl + F les headers qu'il n'y a pas les noms des autres gars
+ - Check /* pour voir qu'il n'y a pas de connerie dans les commentaires
  - Vérifier qu'on a bien  les headers partout => OK !
- 
 
-Norminette :
- - Bug des headers à régler ?
+
+Avant de push
+ - Enlever le fsanityze et checker les leqks
+ - Faire tourner la norminette
+ - Checker le makefile et les make 
+ - Enlever tous les fichiers de tests
+ - Leaks : j'ai valgrind un coup, est-ce que tu es confiant sur le Valgrind ?
 
 
  Tests encore à faire

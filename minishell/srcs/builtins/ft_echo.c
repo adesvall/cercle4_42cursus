@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 12:37:04 by user42            #+#    #+#             */
-/*   Updated: 2022/01/08 12:37:17 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/11 16:36:35 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_is_option_n(char *arg)
 {
-	if (ft_strlen(arg) < 2)
+	if (arg == NULL || ft_strlen(arg) < 2)
 		return (0);
 	if (*(arg++) != '-')
 		return (0);
