@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 16:00:08 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/11 16:01:00 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:22:20 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ static int	handle_redir_out(char *comm, int start, int i, t_redir *res)
 	return (i);
 }
 
-static int	handle_not_redir(char *comm, int start, int i, t_list *lst)
+static int	handle_not_redir(char *comm, int start, int i, t_list **lst)
 {
 	if (ft_isin(comm[i], "\"'"))
 		i = skip_quotes(comm, i);
 	i = skip_notredir(comm, i);
-	ft_lstadd_back(&lst, ft_lstnew(ft_strndup(&comm[start], i - start)));
+	ft_lstadd_back(lst, ft_lstnew(ft_strndup(&comm[start], i - start)));
 	return (i);
 }
 
@@ -73,9 +73,9 @@ t_redir	parse_redir(char **command)
 	{
 		start = i;
 		if (comm[i] == '<')
-			i = handle_redirin(comm, start, i, &res);
+			i = handle_redir_in(comm, start, i, &res);
 		else if (comm[i] == '>')
-			i = handle_redirout(comm, start, i, &res);
+			i = handle_redir_out(comm, start, i, &res);
 		else
 			i = handle_not_redir(comm, start, i, &lst);
 	}

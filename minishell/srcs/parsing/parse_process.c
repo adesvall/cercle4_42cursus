@@ -6,7 +6,7 @@
 /*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/11 16:08:43 by adesvall         ###   ########.fr       */
+/*   Updated: 2022/01/11 16:21:12 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ t_command	**parse_processes(char **commands)
 		return (NULL);
 	i = 0;
 	while (commands[i])
-		exe[i]->argv = construct_argv(commands[i++]);
+	{
+		exe[i]->argv = construct_argv(commands[i]);
+		i++;
+	}
 	exe[i] = NULL;
 	return (exe);
 }

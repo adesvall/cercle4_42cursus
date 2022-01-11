@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: adesvall <adesvall@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 16:10:52 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/08 17:47:07 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/11 16:23:46 by adesvall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	launch_builtin(t_command **commands, int tempin, int tempout)
 	t_command	*exe;
 
 	exe = commands[0];
+	oldin = STDIN_FILENO;
+	oldout = STDIN_FILENO;
 	prepare_redir(exe->io, &tempin, &tempout, commands);
 	if (tempin != STDIN_FILENO)
 	{
