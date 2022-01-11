@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
+/*   By: upeyret <upeyret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 18:07:11 by adesvall          #+#    #+#             */
-/*   Updated: 2022/01/08 23:32:33 by user42           ###   ########.fr       */
+/*   Updated: 2022/01/11 10:30:23 by upeyret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,12 @@ int	disp_tab(char *argv[])
 	return (0);
 }
 
-void parse_error_msg(char c)
+void	parse_error_msg(char c)
 {
 	printf("minishell: syntax error near unexpected token `%c'\n", c);
 }
 
-void free_elems(char **commands)
+void	free_elems(char **commands)
 {
 	int	i;
 
@@ -171,7 +171,6 @@ t_command	**parse_processes(char **commands)
 		// printf("  Command : %s\n", commands[i]);
 		// printf("  Infile  : %s\n", exe[i]->io.infile);
 		// printf("  Outfile : %s\n", exe[i]->io.outfile);
-		
 		exe[i]->argv = construct_argv(commands[i]);
 		// disp_tab(exe[i]->argv);
 		exe[i]->env = NULL;
